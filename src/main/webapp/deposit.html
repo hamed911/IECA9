@@ -1,0 +1,31 @@
+<div ng-controller="AddNewSymbolCtrl as sCtrl">
+    <div class="row">
+        <div class="col-sm-5 form-box enter-alignment">
+            <div class="form-top">
+                <div class="form-top-left">
+                     <h3>اضافه کردن سهام جدید</h3>
+                </div>
+                <div class="form-top-right">
+                    <i class="fa fa-usd"></i>
+                </div>
+            </div>
+            <div class="form-bottom">
+                <form role="form" class="registration-form" action="">
+                    <div class="form-group">
+                        <label class="sr-only">نام سهام</label>
+                        <input ng-model="symbol" type="text" placeholder="...نام سهام" class="form-control" pattern="[A-Za-z1-9]+" title="فقط از حرف و عدد استفاده کنید">
+                    </div>
+                    <div class="form-group">
+                        <label class="sr-only">تعداد</label>
+                        <input ng-model="quantity" type="text" placeholder="تعداد ..." class="form-control" >
+                    </div>
+                    <div class="form-group">
+                        <label class="sr-only">ارزش هر سهم</label>
+                        <input ng-model="price" type="text" placeholder="ارزش هر سهم ..." class="form-control" >
+                    </div>
+                    <button type="submit" class="btn" ng-click="sCtrl.addNewSymbol(symbol,quantity,price)">اضافه کردن سهام</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -9,9 +9,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -24,14 +21,13 @@ import net.internetengineering.exception.DBException;
 import net.internetengineering.exception.DataIllegalException;
 import net.internetengineering.server.StockMarket;
 import net.internetengineering.utils.HSQLUtil;
-import net.internetengineering.utils.JsonBuilder;
 
 /**
  *
  * @author Hamed Ara
  */
-@WebServlet("/addnewsymbol")
-public class AddNewSymbol extends HttpServlet {
+@WebServlet("/appnewsymbol")
+public class ApproveNewSymbol extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {   
         PrintWriter out = response.getWriter();
@@ -46,15 +42,20 @@ public class AddNewSymbol extends HttpServlet {
                 throw new DataIllegalException("Mismatched Parameters");
             sellingOffer.validateVariables();
             dbConnection = HSQLUtil.getInstance().openConnectioin();
-//            StockMarket.getInstance().executeSellingOffer(out, sellingOffer, symbol,dbConnection,true);
-            StockMarket.getInstance().addNewSymbol(symbol, sellingOffer);
+            sellingOffer = StockMarket.getInstance().getApprovedNewSymbol(symbol, sellingOffer);
+            if(sellingOffer==null)
+                throw new DataIllegalException("No such requests are recorded.");
+            StockMarket.getInstance().executeSellingOffer(out, sellingOffer, symbol,dbConnection,true);
             out.print("Your request for adding a new symbol is saved.");
         } catch (DataIllegalException e) {
             out.print(e.getMessage());
         } catch (DBException ex) {
             out.print(ex.getMessage());
             Logger.getLogger(SellOrder.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (NumberFormatException e) {
+        } catch (SQLException ex) {
+            out.print("DBConnection error" );
+            Logger.getLogger(SellOrder.class.getName()).log(Level.SEVERE, null, ex);
+        }catch (NumberFormatException e) {
             out.print("Invalid Number Format." );
             Logger.getLogger(SellOrder.class.getName()).log(Level.SEVERE, null, e);
         } catch (Exception e) {
@@ -69,3 +70,4 @@ public class AddNewSymbol extends HttpServlet {
         }
     }
 }
+

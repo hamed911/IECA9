@@ -10,8 +10,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import net.internetengineering.domain.Transaction;
 import net.internetengineering.exception.DBException;
 import net.internetengineering.model.CustomerDAO;
 import net.internetengineering.model.InstrumentDAO;
@@ -26,12 +28,10 @@ public class StockMarket {
     private static boolean testMode=false;
     //private static List<Instrument> instruments;
     //private static HashMap<String, Customer> customers;
-    private static HashMap<String, String> depositRequests;
 
     private StockMarket(){
 //        instruments = new ArrayList<Instrument>();
 //        customers = new HashMap<String, Customer>();
-        depositRequests = new HashMap<String, String>();
     }
 
     public static StockMarket getInstance(){
@@ -160,12 +160,15 @@ public class StockMarket {
         return InstrumentDAO.getForeSaleInstruments(dbConnection);
     }
 
-    public HashMap<String, String> getDepositRequests(){
+    public HashMap<String, Long> getDepositRequests(){
         return depositRequests;
     }
 
-    public void setDepositRequest(String id, String amount){
-        depositRequests.put(id, amount);
+    public void addDepositRequest(String id, Long amount){
+        if(!depositRequests.containsKey(id))
+            depositRequests.put(id, amount);
+        else
+            depositRequests.put(id,depositRequests.get(id)+ amount);
     }
 
     public static void changeCustomerProperty(SellingOffer sOffer, BuyingOffer bOffer, Long price, Long count, String symbol,Connection dbConnection) throws SQLException, DBException{
@@ -191,4 +194,34 @@ public class StockMarket {
     public boolean authenticateCustomer(String id, String pass, Connection dbConnection) throws SQLException {
         return CustomerDAO.authenticateCustomer(id, pass, dbConnection);
     }
+    
+    public void addNewSymbol(String symbol , SellingOffer offer){
+        if(!newSymbols.containsKey(symbol)){
+            ArrayList<SellingOffer> newOffer = new ArrayList<SellingOffer>();
+            newOffer.add(offer);
+            newSymbols.put(symbol, newOffer);
+        }else
+            newSymbols.get(offer).add(offer);
+    }
+    
+    public SellingOffer getApprovedNewSymbol(String symbol, SellingOffer offer){
+        if(!newSymbols.containsKey(symbol))
+            return null;
+        if(newSymbols.get(offer)==null || newSymbols.get(offer).isEmpty())
+            return null;
+        for( int i=0; i< newSymbols.get(offer).size(); i++){
+            SellingOffer record = newSymbols.get(offer).get(i);
+            if(record.getID().equals(offer.getID()) &&record.getQuantity().equals(offer.getQuantity())
+                    &&record.getPrice().equals(offer.getPrice())){
+                newSymbols.get(offer).remove(i);
+                return record;
+            }
+        }
+        return null;
+    }
+    
+    private static HashMap<String,Long> depositRequests = new HashMap<String, Long>();
+    private static List<Transaction> heavyTransactions = new ArrayList<Transaction>();
+    private static HashMap<String,List<SellingOffer>> newSymbols = new HashMap<String,List< SellingOffer>>();
+    private static Long TransacLimit = Long.MAX_VALUE;
 }
