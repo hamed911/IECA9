@@ -7,10 +7,12 @@ package net.internetengineering.model;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import net.internetengineering.domain.Customer;
 import net.internetengineering.domain.Role;
+import net.internetengineering.domain.dealing.Instrument;
 import net.internetengineering.domain.dealing.TransactionType;
 import net.internetengineering.exception.DBException;
 import net.internetengineering.utils.HashUtil;
@@ -35,6 +37,7 @@ public class CustomerDAO {
     private final static String selectAll = "select * from customer";
     private final static String selectByIdAndPassQuery = "select * from customer c where c.id=? and c.password=?";
     private final static String updateBalance = "update customer set balance = ? where id =?";
+    
     
     public static void dropTableIfExist(Connection dbConnection) throws SQLException{
         dbConnection.createStatement().execute(dropIfExistQuery);
@@ -125,4 +128,6 @@ public class CustomerDAO {
         return list;
 
     }
+
+    
 }

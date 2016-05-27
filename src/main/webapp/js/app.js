@@ -35,7 +35,7 @@
             });
         }
 
-        //$scope.init();
+        $scope.init();
 
         $scope.userInst = function () {
             $http({
@@ -58,8 +58,33 @@
             $scope.notification = null;
         }
         
-        this.getCustomers = function () {          
+        $scope.roles = [];
+        this.getRoles = function(){
+            $http({
+                method: 'GET',
+                url: 'getroles'
+                
+            }).success(function (data, status, headers, config) {
+                $scope.roles = data;
+
+            }).error(function (data, status, headers, config) {
+                //alert('Error:' + data);
+            });
+        }
+        
+        this.checked = function(rol,urol){
+            angular.forEach(urol, function (u) {
+                if (u === rol) {
+                     return true;
+                }
+            });
+                    
+            return false;
+        }
+        
+        this.getCustomers = function () { 
             
+            this.getRoles();
             $http({
                 method: 'GET',
                 url: 'getcustomers'
@@ -82,8 +107,8 @@
             $scope.customer = value;
         }
         
-        this.saveRole = function (role){
-            alert(role);
+        this.saveRole = function (){
+            
         }
         
         this.doLogin = function () {

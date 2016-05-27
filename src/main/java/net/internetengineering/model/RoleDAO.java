@@ -8,7 +8,10 @@ package net.internetengineering.model;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import net.internetengineering.domain.Customer;
 import net.internetengineering.domain.Role;
+import net.internetengineering.domain.dealing.Instrument;
+import net.internetengineering.domain.dealing.TransactionType;
 import net.internetengineering.exception.DBException;
 
 /**
@@ -37,6 +40,7 @@ public class RoleDAO {
             "insert into role values ('officer',false,false,true,true,false,false,false,false,false,false,false);" +
             "insert into role values ('owner',false,false,false,false,true,false,false,false,false,false,false);";
     private final static String selectByCidQuery ="select * from role r where r.name =?";
+    private final static String selectAll ="select name from role";
     
     public static void dropTableIfExist(Connection dbConnection) throws SQLException{
         dbConnection.createStatement().execute(dropIfExistQuery);
@@ -62,5 +66,15 @@ public class RoleDAO {
             return r;
         }
         throw new SQLException("Unable to find role '"+name+"'");
+    }
+    
+    public static ArrayList<String> getRoles(Connection dbConnection) throws SQLException {
+        ArrayList<String> list = new ArrayList<String>();
+        PreparedStatement preparedStatement = dbConnection.prepareStatement(selectAll);
+        ResultSet rs = preparedStatement.executeQuery();
+        while (rs.next()) {
+            list.add(rs.getString("name"));
+        }
+        return list;
     }
 }
