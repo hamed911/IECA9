@@ -1,0 +1,62 @@
+<div ng-controller="MarketController">
+    
+    <div class="top-content">
+        	
+            <div class="inner-bg Font">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-6 col-sm-offset-3 form-box">
+                        	<div class="form-top">
+                        		<div class="form-top-left">
+                        			<h3>اطلاعات شخصی</h3>
+                            		
+                        		</div>
+                        		<div class="form-top-right">
+                        			<i class="fa fa-user" aria-hidden="true"></i>
+                        		</div>
+                            </div>
+                            <div class="form-bottom contact-form">
+			                    <form role="form" >
+                                                
+                                                <div class="input-group">
+                                                  <span class="input-group-addon" id="basic-addon3">نام کاربری</span>
+                                                  <input type="text" class="form-control" aria-describedby="basic-addon3" value="{{session.id}}" readonly="true">
+                                                </div><br/>
+                                                
+                                                <div class="input-group">
+                                                  <span class="input-group-addon" id="basic-addon3">نام</span>
+                                                  <input type="text" class="form-control" aria-describedby="basic-addon3" value="{{session.name}}" readonly="true">
+                                                </div><br/>
+                                                
+                                                <div class="input-group">
+                                                  <span class="input-group-addon" id="basic-addon3">نام خانوادگی</span>
+                                                  <input type="text" class="form-control" aria-describedby="basic-addon3" value="{{session.family}}" readonly="true">
+                                                </div><br/>
+                                                
+                                                <div class="input-group">
+                                                  <span class="input-group-addon" id="basic-addon3">پست الکترونیکی</span>
+                                                  <input type="text" class="form-control" aria-describedby="basic-addon3" value="{{session.email}}" readonly="true">
+                                                </div><br/>
+                                                
+                                                <div class="input-group">
+                                                  <span class="input-group-addon" id="basic-addon3">موجودی حساب</span>
+                                                  <input type="text" class="form-control" aria-describedby="basic-addon3" value="{{session.money}}" readonly="true">
+                                                </div><br/>
+                                                
+                                                <div class="input-group" >
+                                                  <span class="input-group-addon" id="basic-addon3">نقش</span>
+                                                  <input ng-repeat="role in session.roles" type="text" class="form-control" aria-describedby="basic-addon3" value="{{role}}" readonly="true">
+                                                </div><br/>
+                                            
+			                        <!--<button type="submit" class="btn">Send message</button>-->
+			                    </form>
+		                    </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+
+    
+</div>

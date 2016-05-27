@@ -1,0 +1,143 @@
+<div ng-controller="MarketController as ctrl">
+<div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">
+                    به بازار معاملات سهام بورس تهران خوش آمدید
+                </h1>
+            </div>
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4><i class="fa fa-fw fa-check"></i>لیست درخواست ها</h4>
+                    </div>
+                    <div class="panel-body">
+                        <!--<div ng-repeat="req in userRequests | orderBy:'name'" class="mystyle">-->
+                        <ul ng-repeat="req in userRequests" class="mystyle" ng-show="session">
+                            <li class="list-group-item">
+                                <div class="glyphicon-minus text-success">
+                                    <div class="inline-style">{{req.buyOrSell}} -> نام سهام:{{ req.instrument}} & قیمت:{{req.price}} & مقدار:{{req.quantity}} & نوع:{{req.type}}</div>
+                                </div>
+                            </li>
+                        </ul>
+                        <!--</div>-->
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4><i class="fa fa-fw fa-gift"></i>لیست سهام های شما</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div ng-repeat="symbol in userInst | orderBy:'name'" class="mystyle">
+
+                            <p><a class="" data-toggle="modal" data-target="#symbol" data-backdrop="static" ng-model="selectSymbol" ng-click="ctrl.select(symbol.name)" ng-hide="!session">{{symbol}}</a></p>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading mystyle">
+                        <h4><i class="fa fa-fw fa-compass myPosition"></i> لیست سهام</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div ng-repeat="symbol in symbolsQ | orderBy:'name'" class="mystyle">
+
+                            <p><a class="" data-toggle="modal" data-target="#symbol" data-backdrop="static" ng-model="selectSymbol" ng-click="ctrl.select(symbol.name)" ng-hide="!session">{{symbol.name}}</a></p>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.row -->
+
+        <div class="row mystyle">
+
+            <div class="col-lg-12">
+                <h2 class="page-header ">
+                    <span class="inline-style">وضعیت بازار</span>
+                    <button class="btn btn-secondary btn-default" ng-click="ctrl.getDataSymbol()">به روز رسانی</button>
+                </h2>
+            </div>
+
+            <div ng-repeat="symbol in symbolsQ | orderBy:'name'" ng-show="session">
+                <div class="panel-group">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4>
+                                <span class="glyphicon-plus text-primary"><div class="inline-style">نام سهام {{symbol.name}} -  تعداد :  {{symbol.quantity}}</div></span>
+                            </h4>
+                        </div>
+                        <ul>
+                            <li class="list-group-item">
+                                <span class="glyphicon-pencil text-info"><div class="inline-style">لیست فروش</div></span>
+                                <ul ng-repeat="sell in symbol.sellingOffers" class="list-group">
+                                    <li class="list-group-item">
+                                        <div class="glyphicon-minus text-success">
+                                            <div class="inline-style">شماره فروشنده:{{ sell.id}} & تعداد : {{sell.quantity}} & قیمت : {{sell.price}} & نوع : {{sell.type }}</div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="list-group-item">
+                                <span class="glyphicon-pencil text-info"><div class="inline-style">لیست خرید</div></span>
+                                <ul ng-repeat="buy in symbol.buyingOffers" class="list-group">
+                                    <li class="list-group-item">
+                                        <div class="glyphicon-minus text-success">
+                                            <div class="inline-style">شماره خریدار : {{buy.id}} & تعداد : {{buy.quantity}} & قیمت : {{buy.price}} & نوع : {{buy.type}}</div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- /.row -->
+
+        <div id="symbol" class="modal fade container" ng-show="session">
+
+            <!--<div ng-include="'buy&sellForm.html'"></div>-->
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">خرید و فروش سهام</h4>
+                    </div>
+                    <div class="modal-body mystyle" style="padding: 30px">
+                        <label for="subject" class="control-label">نام سهام</label>
+
+                        <input type="text" placeholder="{{symbolName}}" disabled="" class="form-control mystyle" vk_14887="subscribed" vk_1529c="subscribed">
+                        <label for="subject" class="control-label">مقدار سهام</label>
+                        <input type="text" placeholder="{{symbolPrice.price}}" disabled="" class="form-control mystyle" vk_14887="subscribed" vk_1529c="subscribed">
+
+                        <br />
+                        <br />
+                        <form name="buy&sellForm" role="form" class="form-horizontal mystyle" novalidate>
+                            <div class="form-group">
+                                <input ng-model="in1" type="text" placeholder="...قیمت پیشنهادی" class="form-control mystyle" vk_14887="subscribed" vk_1529c="subscribed" vk_1b89b="subscribed" vk_1a2cb="subscribed" vk_1c499="subscribed" vk_19ea1="subscribed">
+                            </div>
+                            <div class="form-group">
+                                <input ng-model="in2" type="text" placeholder="...مقدار سهام" class="form-control mystyle" vk_14887="subscribed" vk_1529c="subscribed" vk_1b89b="subscribed" vk_1a2cb="subscribed" vk_1c499="subscribed" vk_19ea1="subscribed">
+                            </div>
+                            <div class="form-group">
+                                <input ng-model="in3" type="text" placeholder="...نوع درخواست" class="form-control mystyle" vk_14887="subscribed" vk_1529c="subscribed" vk_1b89b="subscribed" vk_1a2cb="subscribed" vk_1c499="subscribed" vk_19ea1="subscribed">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-success" type="submit" ng-click="ctrl.createRequest(in1,in2,in3,'sell')" data-dismiss="modal">فروش</button>
+                        <button class="btn btn-success" type="submit" ng-click="ctrl.createRequest(in1,in2,in3,'buy')" data-dismiss="modal">خرید</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+</div>

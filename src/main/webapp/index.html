@@ -1,0 +1,177 @@
+﻿﻿<!DOCTYPE html>
+<html lang="en" ng-app="stockmarket" > 
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Stock Market</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/modern-business.css" rel="stylesheet">
+    <link href="css/mystyle.css" rel="stylesheet">
+    <link href="fonts/myFonts.css" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="css/profile/form-elements.css" type="text/css">
+    <link rel="stylesheet" href="css/profile/style.css" type="text/css">
+</head>
+
+<body  ng-controller="MarketController as ctrl" data-ng-init="ctrl.doLogin()" >
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top Font" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div ng-show="session" class="navbar-header">
+                <div class="navbar-brand">خوش آمدید {{session.name}}</div>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">مدیریت<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="portfolio-1-col.html">تعیین سقف معاملات&nbsp;
+                                <i class="fa fa-angle-left" aria-hidden="true"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="portfolio-2-col.html">تایید نماد های جدید&nbsp;
+                                <i class="fa fa-angle-left" aria-hidden="true"></i></a>
+                            </li>
+                            <li>
+                                <a href="" ng-click="activeContent='report.html'">گزارش و فایل پشتیبان&nbsp;
+                                <i class="fa fa-angle-left" aria-hidden="true"></i></a>
+                            </li>
+                            <li>
+                                <a href="portfolio-2-col.html">مدیریت کاربران&nbsp;
+                                <i class="fa fa-angle-left" aria-hidden="true"></i></a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">مالی<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="portfolio-1-col.html">تایید درخواست تغییر اعتبار&nbsp;
+                                <i class="fa fa-angle-left" aria-hidden="true"></i></a>
+                            </li>
+                            <li>
+                                <a href="portfolio-2-col.html">تایید معاملات پر ارزش&nbsp;
+                                <i class="fa fa-angle-left" aria-hidden="true"></i></a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">بازار سهام<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="portfolio-1-col.html">مشاهده وضعیت بازار&nbsp;
+                                <i class="fa fa-angle-left" aria-hidden="true"></i></a>
+                            </li>
+                            <li>
+                                <a href="portfolio-2-col.html">درخواست خرید و فروش&nbsp;
+                                <i class="fa fa-angle-left" aria-hidden="true"></i></a>
+                            </li>
+                            <li>
+                                <a href="portfolio-3-col.html">درخواست تغییر اعتبار&nbsp;
+                                <i class="fa fa-angle-left" aria-hidden="true"></i></a>
+                            </li>
+                            <li>
+                                <a href="" ng-click="activeContent='add-new-symbol.html'">اضافه کردن سهام&nbsp;
+                                <i class="fa fa-angle-left" aria-hidden="true"></i></a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">شخصی<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="" ng-click="activeContent='profile.html'">پروفایل من&nbsp;
+                                <i class="fa fa-angle-left" aria-hidden="true"></i></a>
+                            </li>
+                            <li>
+                                <a href="" ng-click="ctrl.doLogout()">خروج&nbsp;
+                                <i class="fa fa-angle-left" aria-hidden="true"></i></a>
+                            </li>
+                        </ul>
+                    </li>
+
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <div class="navbar-inverse navbar" ng-show="notification" style="background-color: #555">
+
+        <div class="navbar-header navbar-right">
+            <a href="" ng-click="ctrl.closeNotificationBar()"> <div class="navbar-brand">close</div> </<a>
+        </div>
+        <div class="navbar-header">
+            <div class="navbar-brand">{{notification}}</div>
+        </div>
+    </div>
+    <!-- Header Carousel -->
+    <header id="myCarousel" class="carousel slide">
+
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner">
+            <div class="item active">
+                <div class="fill full-size" style="background-image:url('pics/timingstockr.jpg'); background-size : 100% 100%;"></div>
+                <div class="carousel-caption">
+                    <h2>رشد بی سابقه</h2>
+                </div>
+            </div>
+            <div class="item">
+                <div class="fill full-size" style="background-image:url('pics/stock-market-down.png'); background-size : 100% 100%;"></div>
+                <div class="carousel-caption">
+                    <h2>بازگشت تضمینی سود</h2>
+                </div>
+            </div>
+            <div class="item">
+                <div class="fill full-size" style="background-image:url('pics/ta2.png'); background-size : 100% 100%;"></div>
+                <div class="carousel-caption">
+                    <h2>کمک به رشد اقتصادی</h2>
+                </div>
+            </div>
+        </div>
+
+        <!-- Controls -->
+        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+            <span class="icon-prev"></span>
+        </a>
+        <a class="right carousel-control" href="#myCarousel" data-slide="next">
+            <span class="icon-next"></span>
+        </a>
+    </header>
+
+    <div class="container">
+
+        <div ng-include="activeContent"></div>
+
+    <footer>
+        <div class="row">
+            <div class="col-lg-12" style="text-align: center">
+                <p>کلیه حقوق این سایت مربوط سازمان مدیریت و سرمایه گذاری کل کشور است.</p>
+            </div>
+        </div>
+    </footer>
+
+    </div>
+    <script type="text/javascript" src="lib/jquery.js"></script>
+    <script type="text/javascript" src="lib/angular.min.js"></script>
+    <script src="lib/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
+    <!-- Script to Activate the Carousel -->
+    <script>
+        $('.carousel').carousel({
+            interval: 5000 //changes the speed
+        })
+    </script>
+
+</body>
+</html>

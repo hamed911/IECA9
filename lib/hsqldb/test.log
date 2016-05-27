@@ -1,0 +1,463 @@
+/*C660*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C661*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C662*/SET SCHEMA PUBLIC
+DELETE FROM CUSTOMER WHERE ID='1'
+INSERT INTO CUSTOMER VALUES('1','admin','admin','admin@stockmarket.com','password',0)
+COMMIT
+DISCONNECT
+/*C663*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C664*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C665*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C666*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C667*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C668*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C669*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C670*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C671*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C672*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C673*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C674*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C675*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C676*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C677*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C678*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C679*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C680*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C681*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C682*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C683*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C684*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C685*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C686*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C687*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C688*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C689*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C690*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C691*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C692*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C693*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C694*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C695*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C696*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C697*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C698*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C699*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C700*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C701*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C702*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C703*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C704*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C705*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C706*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C707*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C708*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C709*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C710*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C711*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C712*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C713*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C714*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C715*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C716*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C717*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C718*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C719*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C720*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C721*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C722*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C723*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C724*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C725*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C726*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C727*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C728*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C729*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C730*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C731*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C732*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C733*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C734*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C735*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C736*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C737*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C738*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C739*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C740*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C741*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C742*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C743*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C744*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C745*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C746*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C747*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C748*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C749*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C750*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C751*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C752*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C753*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C754*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C755*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C756*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C757*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C758*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C759*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C760*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C659*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C658*/SET SCHEMA PUBLIC
+DELETE FROM INSTRUMENT WHERE CUSTOMER_ID='1' AND SYMBOL='Rana'
+COMMIT
+drop table role_customer if exists
+drop table instr_offer if exists
+drop table instrument if exists
+drop table offering if exists
+drop table role if exists
+drop table customer if exists
+drop table transaction if exists
+create table customer (\u000a    id varchar(80) not null,\u000a    name varchar(80) not null,\u000a    family varchar(80) not null,\u000a    email varchar(100) not null,\u000a    password varchar(200) not null,\u000a    balance bigint not null,\u000a    primary key (id)\u000a)
+create table role (\u000a    name varchar(80) not null,\u000a    deposit boolean not null,  --can see deposit form ( form for submiting requests for changing balance)\u000a    transaction boolean not null, -- form for buy and sell transaction\u000a    confdeposit boolean not null, -- can see the form for deposit confirmation\u000a    conftransact boolean not null,  -- can see the form for confirming enormous transaction\u000a    addsymbol boolean not null, -- can see add symbol form ( used for symbol's owner)\u000a    transactlimit boolean not null, -- can see place rule for transaction limitation ( for admin)\u000a    confnewsymbol boolean not null, -- can see the form for new symbol confirmation (for admin)\u000a    report boolean not null, -- for admin\u000a    rolemanager boolean not null, -- form for assigning role\u000a    userprofiles boolean not null,\u000a    backup boolean not null,\u000a    primary key (name)\u000a)
+create table role_customer (\u000a    customer_id varchar(80) not null,\u000a    role_name varchar(80) not null,\u000a    primary key (customer_id,role_name),\u000a    constraint custom_id_fk foreign key(customer_id) references customer(id) on delete cascade,\u000a    constraint role_name_fk foreign key(role_name) references role(name) on delete cascade\u000a)
+create table instrument (\u000a    customer_id varchar(80) not null,\u000a    symbol varchar(100) not null,\u000a    quantity bigint not null,\u000a    for_sale boolean not null,\u000a    primary key (customer_id,symbol),\u000a    constraint customer_id_fk foreign key(customer_id) references customer(id) on delete cascade\u000a)
+create table offering(\u000a    db_id bigint IDENTITY PRIMARY KEY,\u000a    customer_id varchar(80) not null,\u000a    price bigint not null,\u000a    quantity bigint not null,\u000a    type varchar(30) not null,\u000a    kind integer not null,\u000a    constraint custome_id_fk foreign key(customer_id) references customer(id) on delete cascade\u000a)
+create table instr_offer(\u000a    instr_cust_id varchar(80) not null,\u000a    instr_symbol varchar(100) not null,\u000a    offer_id bigint not null,\u000a    primary key (instr_cust_id, instr_symbol, offer_id ),\u000a    constraint instr_fk foreign key(instr_cust_id, instr_symbol) references instrument(customer_id,symbol) on delete cascade,\u000a    constraint offer_id_fk foreign key(offer_id) references offering(db_id) on delete cascade\u000a)
+create table transaction(\u000a    tr_id bigint IDENTITY PRIMARY KEY,\u000a    buyer varchar(80) not null,\u000a    seller varchar(80) not null,\u000a    instrument varchar(80) not null,\u000a    typeOfTrade varchar(80) not null,\u000a    quantity varchar(80) not null,\u000a    price varchar(80) not null,\u000a    time timestamp default now\u000a)
+INSERT INTO CUSTOMER VALUES('1','admin','password','password','stock@bonjol.com',0)
+COMMIT
+drop table role_customer if exists
+drop table instr_offer if exists
+drop table instrument if exists
+drop table offering if exists
+drop table role if exists
+drop table customer if exists
+drop table transaction if exists
+create table customer (\u000a    id varchar(80) not null,\u000a    name varchar(80) not null,\u000a    family varchar(80) not null,\u000a    email varchar(100) not null,\u000a    password varchar(200) not null,\u000a    balance bigint not null,\u000a    primary key (id)\u000a)
+create table role (\u000a    name varchar(80) not null,\u000a    deposit boolean not null,  --can see deposit form ( form for submiting requests for changing balance)\u000a    transaction boolean not null, -- form for buy and sell transaction\u000a    confdeposit boolean not null, -- can see the form for deposit confirmation\u000a    conftransact boolean not null,  -- can see the form for confirming enormous transaction\u000a    addsymbol boolean not null, -- can see add symbol form ( used for symbol's owner)\u000a    transactlimit boolean not null, -- can see place rule for transaction limitation ( for admin)\u000a    confnewsymbol boolean not null, -- can see the form for new symbol confirmation (for admin)\u000a    report boolean not null, -- for admin\u000a    rolemanager boolean not null, -- form for assigning role\u000a    userprofiles boolean not null,\u000a    backup boolean not null,\u000a    primary key (name)\u000a)
+create table role_customer (\u000a    customer_id varchar(80) not null,\u000a    role_name varchar(80) not null,\u000a    primary key (customer_id,role_name),\u000a    constraint custom_id_fk foreign key(customer_id) references customer(id) on delete cascade,\u000a    constraint role_name_fk foreign key(role_name) references role(name) on delete cascade\u000a)
+create table instrument (\u000a    customer_id varchar(80) not null,\u000a    symbol varchar(100) not null,\u000a    quantity bigint not null,\u000a    for_sale boolean not null,\u000a    primary key (customer_id,symbol),\u000a    constraint customer_id_fk foreign key(customer_id) references customer(id) on delete cascade\u000a)
+create table offering(\u000a    db_id bigint IDENTITY PRIMARY KEY,\u000a    customer_id varchar(80) not null,\u000a    price bigint not null,\u000a    quantity bigint not null,\u000a    type varchar(30) not null,\u000a    kind integer not null,\u000a    constraint custome_id_fk foreign key(customer_id) references customer(id) on delete cascade\u000a)
+create table instr_offer(\u000a    instr_cust_id varchar(80) not null,\u000a    instr_symbol varchar(100) not null,\u000a    offer_id bigint not null,\u000a    primary key (instr_cust_id, instr_symbol, offer_id ),\u000a    constraint instr_fk foreign key(instr_cust_id, instr_symbol) references instrument(customer_id,symbol) on delete cascade,\u000a    constraint offer_id_fk foreign key(offer_id) references offering(db_id) on delete cascade\u000a)
+create table transaction(\u000a    tr_id bigint IDENTITY PRIMARY KEY,\u000a    buyer varchar(80) not null,\u000a    seller varchar(80) not null,\u000a    instrument varchar(80) not null,\u000a    typeOfTrade varchar(80) not null,\u000a    quantity varchar(80) not null,\u000a    price varchar(80) not null,\u000a    time timestamp default now\u000a)
+INSERT INTO CUSTOMER VALUES('1','admin','password','password','stock@bonjol.com',0)
+COMMIT
+INSERT INTO INSTRUMENT VALUES('1','RANA',200,TRUE)
+COMMIT
+INSERT INTO OFFERING VALUES(0,'1',100,20,'GTC',0)
+COMMIT
+INSERT INTO INSTR_OFFER VALUES('1','RANA',0)
+COMMIT
+INSERT INTO TRANSACTION VALUES(0,'11','1','BENZ','GTC','22','200','2016-05-27 16:34:58.952000')
+COMMIT
+INSERT INTO ROLE VALUES('admin',TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE)
+COMMIT
+INSERT INTO ROLE VALUES('typical',TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE)
+COMMIT
+INSERT INTO ROLE VALUES('officer',FALSE,FALSE,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE)
+COMMIT
+INSERT INTO ROLE VALUES('owner',FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE)
+COMMIT
+INSERT INTO ROLE_CUSTOMER VALUES('1','admin')
+COMMIT
+INSERT INTO INSTRUMENT VALUES('1','DENA',200,FALSE)
+COMMIT
+/*C762*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C763*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C761*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C765*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C764*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C766*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C767*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C768*/SET SCHEMA PUBLIC
+drop table instr_offer if exists
+drop table instrument if exists
+drop table offering if exists
+drop table role_customer if exists
+drop table role if exists
+drop table customer if exists
+drop table transaction if exists
+create table role (    name varchar(80) not null,    deposit boolean not null,    transaction boolean not null,    confdeposit boolean not null,    conftransact boolean not null,    addsymbol boolean not null,    transactlimit boolean not null,    confnewsymbol boolean not null,    report boolean not null,    rolemanager boolean not null,    userprofiles boolean not null,    backup boolean not null,    primary key (name))
+INSERT INTO ROLE VALUES('admin',TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE)
+COMMIT
+INSERT INTO ROLE VALUES('typical',TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE)
+COMMIT
+INSERT INTO ROLE VALUES('officer',FALSE,FALSE,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE)
+COMMIT
+INSERT INTO ROLE VALUES('owner',FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE)
+COMMIT
+create table customer (    id varchar(80) not null,    name varchar(80) not null,    family varchar(80) not null,    email varchar(100) not null,    password varchar(200) not null,    balance bigint default 0 not null ,    primary key (id))
+create table role_customer (    id varchar(80) not null,    role_name varchar(80) not null,    primary key (id,role_name),    constraint custom_id_fk foreign key(id) references customer(id) on delete cascade,    constraint role_name_fk foreign key(role_name) references role(name) on delete cascade)
+create table instrument (    customer_id varchar(80) not null,    symbol varchar(100) not null,    quantity bigint not null,    primary key (customer_id,symbol),    constraint customer_id_fk foreign key(customer_id) references customer(id) on delete cascade)
+create table offering(    db_id bigint IDENTITY PRIMARY KEY,    customer_id varchar(80) not null,    price bigint not null,    quantity bigint not null,    type varchar(30) not null,    kind integer not null,    constraint custome_id_fk foreign key(customer_id) references customer(id) on delete cascade)
+create table instr_offer(    instr_cust_id varchar(80) not null,    instr_symbol varchar(100) not null,    offer_id bigint not null,    primary key (instr_cust_id, instr_symbol, offer_id ),    constraint instr_fk foreign key(instr_cust_id, instr_symbol) references instrument(customer_id,symbol) on delete cascade,    constraint offer_id_fk foreign key(offer_id) references offering(db_id) on delete cascade)
+create table transaction(    tr_id bigint IDENTITY PRIMARY KEY,    buyer varchar(80) not null,    seller varchar(80) not null,    instrument varchar(80) not null,    typeOfTrade varchar(80) not null,    quantity bigint not null,    price bigint not null,    tTime date default now)
+INSERT INTO CUSTOMER VALUES('1','admin','admin','admin@stockmarket.com','password',0)
+COMMIT
+INSERT INTO ROLE_CUSTOMER VALUES('1','admin')
+COMMIT
+DISCONNECT
+/*C770*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C771*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C772*/SET SCHEMA PUBLIC
+DELETE FROM CUSTOMER WHERE ID='1'
+INSERT INTO CUSTOMER VALUES('1','admin','admin','admin@stockmarket.com','password',0)
+COMMIT
+DISCONNECT
+/*C773*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C774*/SET SCHEMA PUBLIC
+INSERT INTO INSTRUMENT VALUES('1','RANA',200)
+COMMIT
+DISCONNECT
+/*C776*/SET SCHEMA PUBLIC
+DELETE FROM CUSTOMER WHERE ID='1'
+INSERT INTO CUSTOMER VALUES('1','admin','admin','admin@stockmarket.com','password',0)
+COMMIT
+/*C775*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C776*/DISCONNECT
+/*C777*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C778*/SET SCHEMA PUBLIC
+INSERT INTO INSTRUMENT VALUES('1','DENA',3040)
+COMMIT
+DISCONNECT
+/*C779*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C780*/SET SCHEMA PUBLIC
+DELETE FROM CUSTOMER WHERE ID='1'
+INSERT INTO CUSTOMER VALUES('1','admin','admin','admin@stockmarket.com','password',0)
+COMMIT
+DISCONNECT
+/*C781*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C782*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C783*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C784*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C786*/SET SCHEMA PUBLIC
+drop table instr_offer if exists
+drop table instrument if exists
+drop table offering if exists
+drop table role_customer if exists
+drop table role if exists
+drop table customer if exists
+drop table transaction if exists
+create table role (    name varchar(80) not null,    deposit boolean not null,    transaction boolean not null,    confdeposit boolean not null,    conftransact boolean not null,    addsymbol boolean not null,    transactlimit boolean not null,    confnewsymbol boolean not null,    report boolean not null,    rolemanager boolean not null,    userprofiles boolean not null,    backup boolean not null,    primary key (name))
+INSERT INTO ROLE VALUES('admin',TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE)
+COMMIT
+INSERT INTO ROLE VALUES('typical',TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE)
+COMMIT
+INSERT INTO ROLE VALUES('officer',FALSE,FALSE,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE)
+COMMIT
+INSERT INTO ROLE VALUES('owner',FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE)
+COMMIT
+create table customer (    id varchar(80) not null,    name varchar(80) not null,    family varchar(80) not null,    email varchar(100) not null,    password varchar(200) not null,    balance bigint default 0 not null ,    primary key (id))
+create table role_customer (    id varchar(80) not null,    role_name varchar(80) not null,    primary key (id,role_name),    constraint custom_id_fk foreign key(id) references customer(id) on delete cascade,    constraint role_name_fk foreign key(role_name) references role(name) on delete cascade)
+create table instrument (    customer_id varchar(80) not null,    symbol varchar(100) not null,    quantity bigint not null,    for_sale boolean not null,    primary key (customer_id,symbol),    constraint customer_id_fk foreign key(customer_id) references customer(id) on delete cascade)
+create table offering(    db_id bigint IDENTITY PRIMARY KEY,    customer_id varchar(80) not null,    price bigint not null,    quantity bigint not null,    type varchar(30) not null,    kind integer not null,    constraint custome_id_fk foreign key(customer_id) references customer(id) on delete cascade)
+create table instr_offer(    instr_cust_id varchar(80) not null,    instr_symbol varchar(100) not null,    offer_id bigint not null,    primary key (instr_cust_id, instr_symbol, offer_id ),    constraint instr_fk foreign key(instr_cust_id, instr_symbol) references instrument(customer_id,symbol) on delete cascade,    constraint offer_id_fk foreign key(offer_id) references offering(db_id) on delete cascade)
+create table transaction(    tr_id bigint IDENTITY PRIMARY KEY,    buyer varchar(80) not null,    seller varchar(80) not null,    instrument varchar(80) not null,    typeOfTrade varchar(80) not null,    quantity bigint not null,    price bigint not null,    tTime date default now)
+INSERT INTO CUSTOMER VALUES('1','admin','admin','admin@stockmarket.com','password',0)
+COMMIT
+INSERT INTO ROLE_CUSTOMER VALUES('1','admin')
+COMMIT
+DISCONNECT
+/*C785*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C788*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C790*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C789*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C787*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C658*/INSERT INTO INSTRUMENT VALUES('1','RANA',200,TRUE)
+COMMIT
+INSERT INTO INSTRUMENT VALUES('1','RA',200,FALSE)
+COMMIT
+INSERT INTO INSTRUMENT VALUES('1','RWEA',0,TRUE)
+COMMIT
+INSERT INTO INSTRUMENT VALUES('1','RWA',-2,TRUE)
+COMMIT
+/*C792*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C796*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C793*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C794*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C795*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C791*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C801*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C798*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C802*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C800*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C799*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C797*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C803*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C806*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C808*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C804*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C807*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C805*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C809*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C814*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C812*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C811*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C810*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C813*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C815*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C816*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C818*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C817*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C819*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C820*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C821*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C823*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C822*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C825*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C824*/SET SCHEMA PUBLIC
+DISCONNECT

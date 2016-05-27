@@ -1,0 +1,19 @@
+New user is added
+Repeated id
+Unknown user id
+Successful
+Unknown user id
+Not enough money
+Successful
+New user is added
+Successful
+Order is queued
+1 sold 50 shares of RENA1 @100 to 2
+Repeated id
+Order is queued
+Order is queued
+New user is added
+Successful
+Order is declined
+2 sold 30 shares of RENA1 @80 to 3
+1 sold 40 shares of RENA1 @80 to 3

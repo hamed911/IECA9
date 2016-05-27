@@ -1,0 +1,272 @@
+﻿﻿<!DOCTYPE html>
+<html lang="en" ng-app="stockmarket">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Stock Market</title>
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../css/mystyle.css" rel="stylesheet">
+    <link href="../../css/font-awesome.min.css" rel="stylesheet" type="text/css">
+</head>
+
+<body ng-controller="ReportController as ctrl">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <div class="navbar-brand">بازار بورس و سهام</div>
+            </div>
+
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <div class="navbar-inverse navbar" ng-show="notification" style="background-color: #555">
+
+        <div class="navbar-header navbar-right">
+            <a href="" ng-click="ctrl.closeNotificationBar()"> <div class="navbar-brand">close</div> </<a>
+        </div>
+        <div class="navbar-header">
+            <div class="navbar-brand">{{notification}}</div>
+        </div>
+    </div>
+    <!-- Header Carousel -->
+    <header id="myCarousel" class="carousel slide">
+
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner">
+            <div class="item active">
+                <div class="fill full-size" style="background-image:url('../../pics/timingstockr.jpg'); background-size : 100% 100%;"></div>
+                <div class="carousel-caption">
+                    <h2>رشد بی سابقه</h2>
+                </div>
+            </div>
+            <div class="item">
+                <div class="fill full-size" style="background-image:url('../../pics/stock-market-down.png'); background-size : 100% 100%;"></div>
+                <div class="carousel-caption">
+                    <h2>بازگشت تضمینی سود</h2>
+                </div>
+            </div>
+            <div class="item">
+                <div class="fill full-size" style="background-image:url('../../pics/ta2.png'); background-size : 100% 100%;"></div>
+                <div class="carousel-caption">
+                    <h2>کمک به رشد اقتصادی</h2>
+                </div>
+            </div>
+        </div>
+
+        <!-- Controls -->
+        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+            <span class="icon-prev"></span>
+        </a>
+        <a class="right carousel-control" href="#myCarousel" data-slide="next">
+            <span class="icon-next"></span>
+        </a>
+    </header>
+
+    <!-- Page Content -->
+    <div class="container">
+
+        <!-- Section2 -->
+        <div class="row mystyle">
+
+            <div class="col-lg-12">
+                <h2 class="page-header ">
+                    <span class="inline-style">اطلاعات تمام خرید و فروش ها</span>
+                    <!--<button class="btn btn-secondary btn-default" ng-click="ctrl.getDataSymbol()">به روز رسانی</button>-->
+                </h2>
+            </div>
+
+            <button type="button" class="btn btn-info collapsed" data-toggle="collapse" data-target="#demo"><i class="fa fa-search" aria-hidden="true"></i> Search</button>
+            <hr />
+            <div id="demo" class="collapse">
+                <div class="form-bottom contact-form">
+                    <form class="form-inline" role="form">
+                        <label id="title">اطلاعات خریدار</label>
+                        <div class="form-group">
+                            <label for="filter">نام کاربری</label>
+                            <input ng-model="buyerID"  class="form-control" type="text" />
+                            <label for="filter">نام</label>
+                            <input ng-model="buyerName"  class="form-control" type="text" />
+                            <label for="filter">نام خانوادگی</label>
+                            <input ng-model="buyerFamily"  class="form-control" type="text" />
+                            <label for="filter">موجودی</label>
+                            <input ng-model="sbuyerBalance" class="form-control" type="text" placeholder="...از" />
+                            <input ng-model="ebuyerBalance" class="form-control" type="text" placeholder="...تا" />
+                        </div>
+                        <hr />
+                        <label id="title">اطلاعات فروشنده</label>
+                        <div class="form-group">
+                            <label for="filter">نام کاربری</label>
+                            <input ng-model="sellerID"  class="form-control" type="text" />
+                            <label for="filter">نام</label>
+                            <input ng-model="sellerName" class="form-control" type="text" />
+                            <label for="filter">نام خانوادگی</label>
+                            <input ng-model="sellerFamily"  class="form-control" type="text" />
+                            <label for="filter">موجودی</label>
+                            <input ng-model="ssellerBalance" class="form-control" type="text" placeholder="...از" />
+                            <input ng-model="esellerBalance" class="form-control" type="text" placeholder="...تا" />
+                        </div>
+                        <hr />
+                        <label id="title">اطلاعات تراکنش</label>
+                        <div class="form-group">
+                            <label for="filter">نام سهام</label>
+                            <input ng-model="instrument"  class="form-control" type="text" />
+                            <label for="filter">نوع درخواست</label>
+                            <input ng-model="type" class="form-control" type="text" />
+                            <br />
+                            <label for="filter">مقدار سهام</label>
+                            <input ng-model="startQuantity" class="form-control" type="text" placeholder="...از" />
+                            <input ng-model="endQuantity" class="form-control" type="text" placeholder="...تا" />
+                            <br />
+                            <label for="filter">قیمت</label>
+                            <input ng-model="startPrice" class="form-control" type="text" placeholder="...از" />
+                            <input ng-model="endPrice" class="form-control" type="text" placeholder="...تا" />
+                            
+                            <label for="filter">تاریخ</label>
+                            <input ng-model="startDate" class="form-control" type="date" placeholder="...از" />
+                            <input ng-model="endDate" class="form-control" type="date" placeholder="...تا" />
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary"
+                                ng-click="ctrl.search(buyerID,buyerName,buyerFamily,sbuyerBalance,ebuyerBalance,sellerID,sellerName,sellerFamily,ssellerBalance,esellerBalance,instrument,type,startQuantity,endQuantity,startPrice,endPrice,startDate,endDate)">
+                            <i class="fa fa-search" aria-hidden="true"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+
+            <table class="table table-striped table-bordered table-hover table-condensed table table-condensed" style="border-collapse:collapse;">
+                <thead>
+                    <tr>
+                        <th>&nbsp;</th>
+                        <th>ردیف</th>
+                        <th>خریدار</th>
+                        <th>فروشنده</th>
+                        <th>نام سهام</th>
+                        <th>مقدار سهام</th>
+                        <th>قیمت</th>
+                        <th>نوع درخواست</th>
+                        <th>زمان ثبت</th>
+                    </tr>
+                </thead>
+                <tbody ng-repeat="transaction in transactions">
+                    <tr data-toggle="collapse" data-target="#{{transaction.TR_ID}}" class="accordion-toggle">
+                        <td><button class="btn btn-default btn-xs"><i class="fa fa-eye" aria-hidden="true"></i></button></td>
+                        <td>{{transaction.TR_ID}}</td>
+                        <td>{{transaction.BUYER}}</td>
+                        <td>{{transaction.SELLER}}</td>
+                        <td>{{transaction.INSTRUMENT}}</td>
+                        <td>{{transaction.QUANTITY}}</td>
+                        <td>{{transaction.PRICE}}</td>
+                        <td>{{transaction.TYPEOFTRADE}}</td>
+                        <td>{{transaction.TTIME}}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="12" class="hiddenRow">
+                            <div class="accordian-body collapse" id="{{transaction.TR_ID}}">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <td>نام خریدار</td>
+                                            <td>نام خانوادگی خریدار</td>
+                                            <td>موجودی خریدار</td>
+                                            <td>نام فروشنده</td>
+                                            <td>نام خانوادگی فروشنده</td>
+                                            <td>موجودی فروشنده</td>
+                                        </tr>
+
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>{{transaction.BUYERNAME}}</td>
+                                            <td>{{transaction.BUYERFAMILY}}</td>
+                                            <td>{{transaction.BUYERBALANCE}}</td>
+                                            <td>{{transaction.SELLERNAME}}</td>
+                                            <td>{{transaction.SELLERFAMILY}}</td>
+                                            <td>{{transaction.SELLERBALANCE}}</td>
+
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+
+
+         <!--   <div ng-repeat="transaction in transactions | orderBy:'name'">
+                <div class="panel-group">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4>
+                                <span class="glyphicon-plus text-primary"><div class="inline-style">نام سهام {{symbol.name}} -  تعداد :  {{symbol.quantity}}</div></span>
+                            </h4>
+                        </div>
+                        <ul>
+                            <li class="list-group-item">
+                                <span class="glyphicon-pencil text-info"><div class="inline-style">لیست فروش</div></span>
+                                <ul ng-repeat="sell in symbol.sellingOffers" class="list-group">
+                                    <li class="list-group-item">
+                                        <div class="glyphicon-minus text-success">
+                                            <div class="inline-style">شماره فروشنده:{{ sell.id}} & تعداد : {{sell.quantity}} & قیمت : {{sell.price}} & نوع : {{sell.type }}</div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="list-group-item">
+                                <span class="glyphicon-pencil text-info"><div class="inline-style">لیست خرید</div></span>
+                                <ul ng-repeat="buy in symbol.buyingOffers" class="list-group">
+                                    <li class="list-group-item">
+                                        <div class="glyphicon-minus text-success">
+                                            <div class="inline-style">شماره خریدار : {{buy.id}} & تعداد : {{buy.quantity}} & قیمت : {{buy.price}} & نوع : {{buy.type}}</div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>-->
+
+
+        </div>
+        <!-- /.row -->
+        <!-- Footer -->
+        <footer>
+            <div class="row">
+                <div class="col-lg-12" style="text-align: center">
+                    <p>کلیه حقوق این سایت مربوط سازمان مدیریت و سرمایه گذاری کل کشور است.</p>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+    <!-- /.container -->
+    <!-- jQuery -->
+    <script type="text/javascript" src="../../lib/jquery.js"></script>
+    <!-- Angular -->
+    <script type="text/javascript" src="../../lib/angular.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../../lib/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../js/app.js"></script>
+    <!-- Script to Activate the Carousel -->
+    <script>
+        $('.carousel').carousel({
+            interval: 5000 //changes the speed
+        })
+    </script>
+
+</body>
+</html>

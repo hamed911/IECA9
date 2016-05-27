@@ -1,0 +1,57 @@
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee 
+		 http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+         version="3.1">
+	<display-name>Archetype Created Web Application</display-name>
+	<error-page>
+		<error-code>403</error-code>
+		<location>/access-err.html</location>
+	</error-page>
+	<error-page>
+		<error-code>404</error-code>
+		<location>/page-not-found.html</location>
+	</error-page>
+<!--        
+         Security Constraints 
+
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>InCommon</web-resource-name>
+			<url-pattern>/index.html</url-pattern>
+			<url-pattern>/getcustomer</url-pattern>
+			<url-pattern>/logout</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>admin</role-name>
+			<role-name>typical</role-name>
+			<role-name>owner</role-name>
+			<role-name>officer</role-name>
+		</auth-constraint>
+	</security-constraint>
+        
+         Login config 
+        
+        <login-config>
+		<auth-method>FORM</auth-method>
+		<form-login-config>
+			<form-login-page>/login.html</form-login-page>
+			<form-error-page>/login.html</form-error-page>
+		</form-login-config>
+	</login-config>
+	
+	 Security Roles 
+	
+	<security-role>
+            <role-name>admin</role-name>
+	</security-role>
+	<security-role>
+            <role-name>owner</role-name>
+	</security-role>
+	<security-role>
+            <role-name>officer</role-name>
+	</security-role>
+	<security-role>
+            <role-name>typical</role-name>
+	</security-role>-->
+</web-app>
