@@ -107,7 +107,7 @@ public class GetInstrument extends HttpServlet{
                 response.getWriter().print(myList1);
                 response.setContentType("application/json");
         }catch (SQLException ex) {
-            out.print("Error in saving new customer in DB.");
+            out.print("Error in retrieving data from DB.");
             Logger.getLogger(AddCustomer.class.getName()).log(Level.SEVERE, null, ex);
         } catch (DBException ex) {
             out.print("Error in creating DB connection");

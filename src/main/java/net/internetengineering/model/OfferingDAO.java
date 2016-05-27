@@ -30,8 +30,9 @@ public class OfferingDAO {
     private final static String selectFieldsQuery = "select * from offering where db_id=? ";
     private final static String insertOfferingQuery = "insert into offering (customer_id, price, quantity, type, kind) values (?, ?, ?, ?, ?)";
     private final static String getMaxDBID = "SELECT MAX(o.db_id) as max_db FROM offering o";
-    private final static String deleteOffringByDBID = "delete from instrument i where i.quantity=?";
-        
+    private final static String deleteOffringByDBID = "delete from offering o where o.db_id=?";
+    private final static String updateQuantityOfOffering = "update offering o set o.quantity =? where o.db_id =?";
+    
     public static void dropTableIfExist(Connection dbConnection) throws SQLException{
         dbConnection.createStatement().execute(dropIfExistQuery);
     }
@@ -65,11 +66,18 @@ public class OfferingDAO {
         preparedStatement.executeUpdate();
         Long dbID = getMaximomDBID(dbConnection);
         o.setDbID(dbID);
-        InstrumentOfferingDAO.insertInstrOffer(o.getID(), symbol, dbID, dbConnection);
+//        InstrumentOfferingDAO.insertInstrOffer(o.getID(), symbol, dbID, dbConnection);
+    }
+    
+    public static void updateQuantityOfOffering(Offering o, Connection dbConnection)throws SQLException{
+        PreparedStatement preparedStatement = dbConnection.prepareStatement(updateQuantityOfOffering);
+        preparedStatement.setLong(1, o.getQuantity());
+        preparedStatement.setLong(2, o.getDbID());
+        preparedStatement.executeUpdate();
     }
     
     public static void deleteOfferingByDBID(Long dbID,Connection dbConnection) throws SQLException{
-        PreparedStatement preparedStatement = dbConnection.prepareStatement(insertOfferingQuery);
+        PreparedStatement preparedStatement = dbConnection.prepareStatement(deleteOffringByDBID);
         preparedStatement.setLong(1, dbID);
         preparedStatement.executeUpdate();
     }

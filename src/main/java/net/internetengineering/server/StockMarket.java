@@ -15,6 +15,7 @@ import java.util.logging.Logger;
 import net.internetengineering.exception.DBException;
 import net.internetengineering.model.CustomerDAO;
 import net.internetengineering.model.InstrumentDAO;
+import net.internetengineering.model.InstrumentOfferingDAO;
 import net.internetengineering.model.OfferingDAO;
 
 /**
@@ -64,7 +65,11 @@ public class StockMarket {
             throw new DataIllegalException("Not enough share");
         }
         OfferingDAO.insertNewOffering(offer,symbol, dbConnection);
+        if(isOwner)
+            InstrumentOfferingDAO.insertInstrOffer(offer.getID(), symbol, offer.getDbID(), dbConnection);
         instrument.executeSellingByType(out,offer,dbConnection);
+        if(offer.getQuantity()>0 && !isOwner)
+            InstrumentOfferingDAO.insertInstrOffer(instrument.getCustomerID(), symbol, offer.getDbID(), dbConnection);
     }
 
     public void executeBuyingOffer(PrintWriter out, BuyingOffer offer, String symbol,Connection dbConnection, boolean isOwner) throws DataIllegalException, SQLException, DBException{
@@ -79,6 +84,8 @@ public class StockMarket {
         Instrument instrument = loadVerifiedParameters(offer, symbol,dbConnection);
         OfferingDAO.insertNewOffering(offer,symbol ,dbConnection);
         instrument.executeBuyingByType(out, offer,dbConnection);
+        if(offer.getQuantity()>0 &&!isOwner)
+            InstrumentOfferingDAO.insertInstrOffer(instrument.getCustomerID(), symbol, offer.getDbID(), dbConnection);
     }
 
     private void addOrUpdateInstrumentByOwner(String symbol,Offering offer,Connection dbConnection) throws SQLException, DBException {
@@ -173,8 +180,8 @@ public class StockMarket {
 
     }
 
-    public void activeTestMode(){
-        testMode = true;
+    public void setTestMode(boolean state){
+        testMode = state;
     }
     
     public boolean isTestMode(){

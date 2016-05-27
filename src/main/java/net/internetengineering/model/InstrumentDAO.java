@@ -29,7 +29,7 @@ public class InstrumentDAO {
                     "    constraint customer_id_fk foreign key(customer_id) references customer(id) on delete cascade" +
                     ")";
     private final static String selectByCidQuery ="select * from instrument i where i.customer_id =?"; 
-    private final static String updateQuantInstrument = "UPDATE instrument set quantity=? where customer_id=? and symbol=?";
+    private final static String updateQuantInstrument = "UPDATE instrument set quantity=? where customer_id=? and symbol=? and for_sale=?";
     private final static String insertInstrument = "insert into instrument values (?, ?, ?,?);";
     private final static String selectForeSaleInstruments = "select * from instrument i where i.quantity> 0 and i.for_sale=TRUE";
     
@@ -45,7 +45,7 @@ public class InstrumentDAO {
         ResultSet rs=dbConnection.createStatement().executeQuery(selectForeSaleInstruments);
         List<Instrument> insts = new ArrayList<Instrument>();
         while(rs.next()){
-            Instrument i = new Instrument(rs.getString("symbol"), rs.getLong("quantity"));
+            Instrument i = new Instrument(rs.getString("customer_id"),rs.getString("symbol"), rs.getLong("quantity"));
             List<Offering> offers = InstrumentOfferingDAO.selectByCidAndSymbol(rs.getString("customer_id"), rs.getString("symbol"), dbConnection);
             for(Offering o : offers)
                 if(o instanceof SellingOffer)
@@ -63,7 +63,7 @@ public class InstrumentDAO {
         ResultSet rs = preparedStatement.executeQuery();
         List<Instrument> insts = new ArrayList<Instrument>();
         while(rs.next()){
-            Instrument i = new Instrument(rs.getString("symbol"), rs.getLong("quantity"));
+            Instrument i = new Instrument(rs.getString("customer_id"),rs.getString("symbol"), rs.getLong("quantity"));
             List<Offering> offers = InstrumentOfferingDAO.selectByCidAndSymbol(cid, rs.getString("symbol"), dbConnection);
             for(Offering o : offers)
                 if(o instanceof SellingOffer)
