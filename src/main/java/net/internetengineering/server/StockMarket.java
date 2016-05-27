@@ -17,6 +17,7 @@ import net.internetengineering.model.CustomerDAO;
 import net.internetengineering.model.InstrumentDAO;
 import net.internetengineering.model.InstrumentOfferingDAO;
 import net.internetengineering.model.OfferingDAO;
+import net.internetengineering.model.RoleDAO;
 
 /**
  * Created by Hamed Ara on 2/18/2016.
@@ -194,5 +195,9 @@ public class StockMarket {
 
     public ArrayList<Customer> getCustomers(Connection dbConnection) throws SQLException, DBException {
         return CustomerDAO.getAllCustomers(dbConnection);
+    }
+
+    public ArrayList<String> getRoles(Connection dbConnection) throws SQLException {
+        return RoleDAO.getRoles(dbConnection); //To change body of generated methods, choose Tools | Templates.
     }
 }
