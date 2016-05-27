@@ -1,5 +1,5 @@
 ﻿﻿<!DOCTYPE html>
-<html lang="en" ng-app="stockmarket" > 
+<html lang="en" ng-app="stockmarket"  > 
 
 <head>
 
@@ -12,11 +12,11 @@
     <link href="css/mystyle.css" rel="stylesheet">
     <link href="fonts/myFonts.css" rel="stylesheet">
     <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="css/profile/form-elements.css" type="text/css">
+    <!--<link rel="stylesheet" href="css/profile/form-elements.css" type="text/css">-->
     <link rel="stylesheet" href="css/profile/style.css" type="text/css">
 </head>
 
-<body  ng-controller="MarketController as ctrl" data-ng-init="ctrl.doLogin()" >
+<body ng-controller="MarketController as ctrl" data-ng-init="ctrl.doLogin()" >
 
     <!-- Navigation -->
     <nav class="navbar navbar-inverse navbar-fixed-top Font" role="navigation">
@@ -46,7 +46,7 @@
                                 <i class="fa fa-angle-left" aria-hidden="true"></i></a>
                             </li>
                             <li>
-                                <a href="portfolio-2-col.html">مدیریت کاربران&nbsp;
+                                <a href="" ng-click="activeContent='userManagment.html'">مدیریت کاربران&nbsp;
                                 <i class="fa fa-angle-left" aria-hidden="true"></i></a>
                             </li>
                         </ul>

@@ -1,0 +1,61 @@
+<div data-ng-init="ctrl.getCustomers()">
+
+    <!-- Marketing Icons Section -->
+        <br/>
+        <div class="row">
+            
+            
+            <div class="col-md-10">
+                <div class="panel panel-default">
+                    <div class="panel-heading mystyle">
+                        <h4><i class="fa fa-fw fa-compass myPosition"></i>لیست کاربران </h4>
+                    </div>
+                    <div class="panel-body">
+                        <div ng-repeat="customer in customers | orderBy:'id'" class="mystyle">
+
+                            <p><a class="" data-toggle="modal" data-target="#customer" data-backdrop="static" ng-click="ctrl.selectCustomer(customer)" ng-hide="!session">{{customer.id}}</a></p>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.row -->
+
+        
+        <div id="customer" class="modal fade container" ng-show="session">
+
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">مشخصات کاربر با نام کاربری
+                             &nbsp;{{customer.id}}</h4>
+                    </div>
+                    <div class="modal-body mystyle" style="padding: 30px">
+                        <label class="control-label">نام</label>
+                        <input type="text" placeholder="{{customer.name}}" disabled="" class="form-control mystyle" >
+                        <label class="control-label">نام خانوادگی</label>
+                        <input type="text" placeholder="{{customer.family}}" disabled="" class="form-control mystyle" >
+                        <label class="control-label">پست الکترونیکی</label>
+                        <input type="text" placeholder="{{customer.email}}" disabled="" class="form-control mystyle" >
+                        <label class="control-label">موجودی حساب</label>
+                        <input type="text" placeholder="{{customer.money}}" disabled="" class="form-control mystyle" >
+
+                        <br />
+                            
+                        
+                        <label class="control-label">نقش</label>
+                        <input ng-repeat="cRole in customer.roles" type="text" class="form-control" aria-describedby="basic-addon3" value="{{cRole}}">
+                      
+                        
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-success" type="submit" ng-click="ctrl.saveRole('role')" data-dismiss="modal">ثبت</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+</div>

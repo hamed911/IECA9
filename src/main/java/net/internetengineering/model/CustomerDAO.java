@@ -6,6 +6,7 @@
 package net.internetengineering.model;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import net.internetengineering.domain.Customer;
@@ -31,6 +32,7 @@ public class CustomerDAO {
                 ");";
     private final static String insertQuery = "insert into customer values (?, ?,?,?,?,?)";
     private final static String selectByIdQuery = "select * from customer c where c.id=?";
+    private final static String selectAll = "select * from customer";
     private final static String selectByIdAndPassQuery = "select * from customer c where c.id=? and c.password=?";
     private final static String updateBalance = "update customer set balance = ? where id =?";
     
@@ -105,5 +107,22 @@ public class CustomerDAO {
             return true;
         else
             return false;
+    }
+
+    public static ArrayList<Customer> getAllCustomers(Connection dbConnection) throws SQLException, DBException {
+        ArrayList<Customer> list = new ArrayList<Customer>();
+        PreparedStatement preparedStatement = dbConnection.prepareStatement(selectAll);
+        ResultSet rs = preparedStatement.executeQuery();
+        while (rs.next()) {
+            String id = rs.getString("id");
+           Customer c = new Customer(id,rs.getString("name"), rs.getString("family"),
+                    rs.getString("email"),rs.getString("password"));
+            c.executeTransaction(TransactionType.DEPOSIT, rs.getLong("balance"),dbConnection);
+            c.setInstruments(InstrumentDAO.findByCustomerID(id, dbConnection));
+            c.setRoles(CustomerRoleDAO.findByCustomerID(id, dbConnection));
+            list.add(c); 
+        }
+        return list;
+
     }
 }

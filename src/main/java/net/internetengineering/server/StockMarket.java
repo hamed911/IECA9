@@ -184,4 +184,8 @@ public class StockMarket {
     public boolean authenticateCustomer(String id, String pass, Connection dbConnection) throws SQLException {
         return CustomerDAO.authenticateCustomer(id, pass, dbConnection);
     }
+
+    public ArrayList<Customer> getCustomers(Connection dbConnection) throws SQLException, DBException {
+        return CustomerDAO.getAllCustomers(dbConnection);
+    }
 }

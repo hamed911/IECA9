@@ -13,8 +13,10 @@
         $scope.isLogin = login;    
     
         $scope.symbolsQ = [];
+        $scope.custumers = [];
         $scope.userInstList = [];
         $scope.activeContent = 'content.html';
+        
         $scope.init = function () {
             $http({
                 method: 'GET',
@@ -23,7 +25,7 @@
             }).success(function (data, status, headers, config) {
                 if (typeof data !== 'string') {
                     $scope.symbolsQ = data;
-                    alert('INIT SYMBOL');
+                    //alert('INIT SYMBOL');
                 }
                 else
                     $scope.notification = data;
@@ -56,10 +58,38 @@
             $scope.notification = null;
         }
         
+        this.getCustomers = function () {          
+            
+            $http({
+                method: 'GET',
+                url: 'getcustomers'
+            }).success(function (data, status, headers, config) {
+                //console.log((typeof data));
+                
+                if (typeof data !== 'string') {
+                    $scope.customers = data;         
+                }
+                else{
+                    $scope.notification = data;
+                }
+            }).error(function (data, status, headers, config) {
+                alert('Error:' + data);
+            });
+        }
+        
+        $scope.customer = [];
+        this.selectCustomer = function (value) {
+            $scope.customer = value;
+        }
+        
+        this.saveRole = function (role){
+            alert(role);
+        }
+        
         this.doLogin = function () {
             $http({
                 method: 'GET',
-                url: 'getcustomer',
+                url: 'getcustomer'
             }).success(function (data, status, headers, config) {
                 //console.log((typeof data));
                 
@@ -80,7 +110,7 @@
         this.doLogout = function () {
             $http({
                 method: 'GET',
-                url: 'logout',
+                url: 'logout'
             }).success(function (data) {
                 window.location.reload();
             }).error(function (data) {
@@ -203,6 +233,7 @@
         $scope.transactions = [];
 
         $scope.notification = null;
+        
         
         this.closeNotificationBar = function () {
             $scope.notification = null;
