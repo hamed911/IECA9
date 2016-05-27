@@ -1,9 +1,9 @@
-<div ng-controller="DepositCtrl as dCtrl">
+<div ng-controller="TransacLimitCtrl as tlCtrl">
     <div class="row">
         <div class="col-sm-5 form-box enter-alignment">
             <div class="form-top">
                 <div class="form-top-left">
-                     <h3>درخواست تغییر اعتبار</h3>
+                     <h3>تعیین سقف معادلات</h3>
                 </div>
                 <div class="form-top-right">
                     <i class="fa fa-usd"></i>
@@ -12,10 +12,10 @@
             <div class="form-bottom">
                 <form role="form" class="registration-form" action="">
                     <div class="form-group">
-                        <label class="sr-only">مقدار تغییر</label>
-                        <input ng-model="amount" type="text" placeholder="مقدار تغییر...." class="form-control">
+                        <label class="sr-only">میزان سقف</label>
+                        <input ng-model="amount" type="text" placeholder="میزان سقف ..." class="form-control">
                     </div>
-                    <button type="submit" class="btn" ng-click="dCtrl.sendReq(amount)">ارسال درخواست</button>
+                    <button type="submit" class="btn" ng-click="tlCtrl.setLimit(amount)">اضافه کردن سهام</button>
                 </form>
             </div>
         </div>

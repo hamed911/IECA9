@@ -285,11 +285,6 @@
     }]);
     
     app.controller('AddNewSymbolCtrl',['$scope', '$http', function ($scope, $http){
-        $scope.notification = null;
-        this.closeNotificationBar = function () {
-            $scope.notification = null;
-        }
-        
         this.addNewSymbol = function (symbol,amount,price){
             //alert(symbol+'-'+amount+'-'+price);
             $http({
@@ -302,6 +297,36 @@
                 alert('Error:' + data);
             });
         }
-    }])
+    }]);
+
+    app.controller('DepositCtrl',['$scope', '$http', function ($scope, $http){
+        this.sendReq = function (amount){
+            alert('amount:'+amount);
+            $http({
+                method: 'GET',
+                url: 'deposit',
+                params: { 'id': 'ham','amount': amount }
+            }).success(function (data, status, headers, config) {
+                alert('Success: '+data);
+            }).error(function (data, status, headers, config) {
+                alert('Error:' + data);
+            });
+        }
+    }]);
+
+    app.controller('TransacLimitCtrl',['$scope', '$http', function ($scope, $http){
+        this.setLimit = function (amount){
+            alert('amount:'+amount);
+            $http({
+                method: 'GET',
+                url: 'transaclimit',
+                params: { 'id': '1','amount': amount }
+            }).success(function (data, status, headers, config) {
+                alert('Success: '+data);
+            }).error(function (data, status, headers, config) {
+                alert('Error:' + data);
+            });
+        }
+    }]);
 
 })();

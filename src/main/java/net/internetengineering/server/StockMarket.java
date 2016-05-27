@@ -223,6 +223,15 @@ public class StockMarket {
         }
         return null;
     }
+    public void setTransacLimitation(Long l){
+        TransacLimit=l;
+    }
+    public Long getTransacLimitation(){
+        return TransacLimit;
+    }
+    public void addHeavyTransaction(Transaction t){
+        heavyTransactions.add(t);
+    }
     
     private static HashMap<String,Long> depositRequests = new HashMap<String, Long>();
     private static List<Transaction> heavyTransactions = new ArrayList<Transaction>();

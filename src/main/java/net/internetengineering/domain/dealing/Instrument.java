@@ -162,15 +162,14 @@ public class Instrument {
                             String[] newType = type.split("\\.");
                             System.out.println(newType[newType.length-1]);
                             Transaction t = new Transaction(buyer.getId(),seller.getId(),sym,newType[newType.length-1],String.valueOf(buyQuantity),String.valueOf(buyPrice));
-
-                            //DB
-                                    try{
-                                            TransactionDAO.createTransaction(t);
-                                    } catch (DBException ex) {
-                            out.print(ex.getMessage());
-            		}
-				//CSVFileWriter.writeCsvFile(t);
-	    		out.println(sellingOffer.getID()+" sold "+buyQuantity+" shares of "+sym+" @"+buyPrice+" to "+buyingOffer.getID());
+                            if(buyPrice*buyQuantity<StockMarket.getInstance().getTransacLimitation()){        
+                                TransactionDAO.createTransaction(t);
+                                out.println(sellingOffer.getID()+" sold "+buyQuantity+" shares of "+sym+" @"+buyPrice+" to "+buyingOffer.getID());
+                            }else{
+                                StockMarket.getInstance().addHeavyTransaction(t);
+                                out.print("Your transaction successfully is save and it is waiting for aprovement.");
+                            }
+                            //CSVFileWriter.writeCsvFile(t);
 	    	}else
 				break;
 	    	if(!sellingOffers.isEmpty()&&!buyingOffers.isEmpty()) {
