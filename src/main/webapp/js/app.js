@@ -23,7 +23,7 @@
             }).success(function (data, status, headers, config) {
                 if (typeof data !== 'string') {
                     $scope.symbolsQ = data;
-                    //alert('SUCCESS' + data);
+                    alert('INIT SYMBOL');
                 }
                 else
                     $scope.notification = data;
@@ -33,7 +33,7 @@
             });
         }
 
-        $scope.init();
+        //$scope.init();
 
         $scope.userInst = function () {
             $http({
@@ -162,10 +162,10 @@
         this.updateSymbols = function () {
             alert('not implemented');
         }
-        $interval(function () {
-            $scope.init();
-            $scope.userInst();
-        }, 1000 * 15);
+//        $interval(function () {
+//            $scope.init();
+//            $scope.userInst();
+//        }, 1000 * 15);
 
 
         $scope.userRequests = [];
@@ -231,7 +231,7 @@
         this.search = function (buyerID, buyerName, buyerFamily, sbuyerBalance, ebuyerBalance, sellerID, sellerName, sellerFamily, ssellerBalance, esellerBalance, instrument, type, startQuantity, endQuantity, startPrice, endPrice, startDate, endDate) {
             $http({
                 method: 'GET',
-                url: 'index1.html/search',
+                url: 'search',
                 params: {
                     'buyerID': buyerID, 'buyerName': buyerName, 'buyerFamily': buyerFamily, 'sbuyerBalance': sbuyerBalance, 'ebuyerBalance': ebuyerBalance,
                     'sellerID': sellerID, 'sellerName': sellerName, 'sellerFamily': sellerFamily, 'ssellerBalance': ssellerBalance, 'esellerBalance': esellerBalance,
@@ -260,13 +260,13 @@
         }
         
         this.addNewSymbol = function (symbol,amount,price){
-            alert(symbol+'-'+amount+'-'+price);
+            //alert(symbol+'-'+amount+'-'+price);
             $http({
                 method: 'GET',
                 url: 'addnewsymbol',
                 params: { 'symbol': symbol,'amount': amount, 'price': price }
             }).success(function (data, status, headers, config) {
-                alert('Success: '+data)
+                alert('Success: '+data);
             }).error(function (data, status, headers, config) {
                 alert('Error:' + data);
             });

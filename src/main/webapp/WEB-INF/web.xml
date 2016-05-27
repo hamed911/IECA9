@@ -12,7 +12,7 @@
 		<error-code>404</error-code>
 		<location>/page-not-found.html</location>
 	</error-page>
-<!--        
+        
          Security Constraints 
 
 	<security-constraint>
@@ -53,5 +53,5 @@
 	</security-role>
 	<security-role>
             <role-name>typical</role-name>
-	</security-role>-->
+	</security-role>
 </web-app>

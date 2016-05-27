@@ -67,6 +67,7 @@ public class AddNewSymbol extends HttpServlet {
                 if(dbConnection!=null&&!dbConnection.isClosed())
                     dbConnection.close();
             } catch (SQLException ex) {
+                System.out.println("catch: connection");
             }
         }
     }

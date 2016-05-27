@@ -1,11 +1,11 @@
-<div ng-controller="MarketController">
+<div>
     
     <div class="top-content">
         	
             <div class="inner-bg Font">
                 <div class="container">
                     <div class="row">
-                        <div class="col-sm-6 col-sm-offset-3 form-box">
+                        <div class="col-sm-5 col-sm-offset-3 form-box">
                         	<div class="form-top">
                         		<div class="form-top-left">
                         			<h3>اطلاعات شخصی</h3>
@@ -15,37 +15,37 @@
                         			<i class="fa fa-user" aria-hidden="true"></i>
                         		</div>
                             </div>
-                            <div class="form-bottom contact-form">
+                            <div class="form-bottom contact-form" ng-show="session">
 			                    <form role="form" >
                                                 
                                                 <div class="input-group">
                                                   <span class="input-group-addon" id="basic-addon3">نام کاربری</span>
-                                                  <input type="text" class="form-control" aria-describedby="basic-addon3" value="{{session.id}}" readonly="true">
+                                                  <input type="text" class="form-control" aria-describedby="basic-addon3" value="{{session.id}}" readonly>
                                                 </div><br/>
                                                 
                                                 <div class="input-group">
                                                   <span class="input-group-addon" id="basic-addon3">نام</span>
-                                                  <input type="text" class="form-control" aria-describedby="basic-addon3" value="{{session.name}}" readonly="true">
+                                                  <input type="text" class="form-control" aria-describedby="basic-addon3" value="{{session.name}}" readonly>
                                                 </div><br/>
                                                 
                                                 <div class="input-group">
                                                   <span class="input-group-addon" id="basic-addon3">نام خانوادگی</span>
-                                                  <input type="text" class="form-control" aria-describedby="basic-addon3" value="{{session.family}}" readonly="true">
+                                                  <input type="text" class="form-control" aria-describedby="basic-addon3" value="{{session.family}}" readonly>
                                                 </div><br/>
                                                 
                                                 <div class="input-group">
                                                   <span class="input-group-addon" id="basic-addon3">پست الکترونیکی</span>
-                                                  <input type="text" class="form-control" aria-describedby="basic-addon3" value="{{session.email}}" readonly="true">
+                                                  <input type="text" class="form-control" aria-describedby="basic-addon3" value="{{session.email}}" readonly>
                                                 </div><br/>
                                                 
                                                 <div class="input-group">
                                                   <span class="input-group-addon" id="basic-addon3">موجودی حساب</span>
-                                                  <input type="text" class="form-control" aria-describedby="basic-addon3" value="{{session.money}}" readonly="true">
+                                                  <input type="text" class="form-control" aria-describedby="basic-addon3" value="{{session.money}}" readonly>
                                                 </div><br/>
                                                 
                                                 <div class="input-group" >
                                                   <span class="input-group-addon" id="basic-addon3">نقش</span>
-                                                  <input ng-repeat="role in session.roles" type="text" class="form-control" aria-describedby="basic-addon3" value="{{role}}" readonly="true">
+                                                  <input ng-repeat="role in session.roles" type="text" class="form-control" aria-describedby="basic-addon3" value="{{role}}" readonly>
                                                 </div><br/>
                                             
 			                        <!--<button type="submit" class="btn">Send message</button>-->
