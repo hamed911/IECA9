@@ -1,7 +1,7 @@
 
 input[type="text"], 
 textarea, 
-textarea.form-control {
+textarea.form-control2 {
 	height: 50px;
     margin: 0;
     padding: 0 20px;
@@ -19,7 +19,7 @@ textarea.form-control {
 }
 
 textarea, 
-textarea.form-control {
+textarea.form-control2 {
 	padding-top: 10px;
 	padding-bottom: 10px;
 	line-height: 30px;
@@ -27,16 +27,16 @@ textarea.form-control {
 
 input[type="text"]:focus, 
 textarea:focus, 
-textarea.form-control:focus {
+textarea.form-control2:focus {
 	outline: 0;
 	background: #fff;
     border: 3px solid #fff;
     -moz-box-shadow: none; -webkit-box-shadow: none; box-shadow: none;
 }
 
-input[type="text"]:-moz-placeholder, textarea:-moz-placeholder, textarea.form-control:-moz-placeholder { color: #888; }
-input[type="text"]:-ms-input-placeholder, textarea:-ms-input-placeholder, textarea.form-control:-ms-input-placeholder { color: #888; }
-input[type="text"]::-webkit-input-placeholder, textarea::-webkit-input-placeholder, textarea.form-control::-webkit-input-placeholder { color: #888; }
+input[type="text"]:-moz-placeholder, textarea:-moz-placeholder, textarea.form-control2:-moz-placeholder { color: #888; }
+input[type="text"]:-ms-input-placeholder, textarea:-ms-input-placeholder, textarea.form-control2:-ms-input-placeholder { color: #888; }
+input[type="text"]::-webkit-input-placeholder, textarea::-webkit-input-placeholder, textarea.form-control2::-webkit-input-placeholder { color: #888; }
 
 
 
