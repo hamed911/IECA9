@@ -1,19 +1,22 @@
+DataBase configured successfully.
+
 New user is added
-Repeated id
-Unknown user id
+
 Successful
-Unknown user id
-Not enough money
-Successful
-New user is added
-Successful
+
 Order is queued
-1 sold 50 shares of RENA1 @100 to 2
-Repeated id
+Your request for adding a new symbol is saved.
+
+[{"quantity":"100","name":"RENA","sellingOffers":[{"quantity":"100","price":"50","id":"1","type":"GTC"}],"buyingOffers":[]}]
+
 Order is queued
+Your request for adding a new symbol is saved.
+
+[{"quantity":"1000","name":"DENA","sellingOffers":[{"quantity":"1000","price":"25","id":"1","type":"GTC"}],"buyingOffers":[]},{"quantity":"100","name":"RENA","sellingOffers":[{"quantity":"100","price":"50","id":"1","type":"GTC"}],"buyingOffers":[]}]
+
+1 sold 50 shares of RENA @100 to 2
+
+["RENA"]
+
 Order is queued
-New user is added
-Successful
-Order is declined
-2 sold 30 shares of RENA1 @80 to 3
-1 sold 40 shares of RENA1 @80 to 3
+

@@ -195,6 +195,10 @@ public class StockMarket {
         return CustomerDAO.authenticateCustomer(id, pass, dbConnection);
     }
     
+    public ArrayList<Customer> getCustomers(Connection dbConnection) throws SQLException, DBException {
+        return CustomerDAO.getAllCustomers(dbConnection);
+    }
+    
     public void addNewSymbol(String symbol , SellingOffer offer){
         if(!newSymbols.containsKey(symbol)){
             ArrayList<SellingOffer> newOffer = new ArrayList<SellingOffer>();
