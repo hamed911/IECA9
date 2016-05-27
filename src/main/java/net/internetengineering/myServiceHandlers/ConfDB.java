@@ -40,8 +40,12 @@ public class ConfDB extends HttpServlet{
         Connection dbConnection = null;
         Statement statement = null;
         try{
-            if(request.getParameter("test")!=null)
-                StockMarket.getInstance().activeTestMode();
+            if(request.getParameter("test")!=null){
+                if(request.getParameter("test").equals("1"))
+                    StockMarket.getInstance().setTestMode(true);
+                else
+                    StockMarket.getInstance().setTestMode(false);
+            }
             dbConnection = HSQLUtil.getInstance().openConnectioin();
             dropTablesIfExist(dbConnection);
             createTables(dbConnection);

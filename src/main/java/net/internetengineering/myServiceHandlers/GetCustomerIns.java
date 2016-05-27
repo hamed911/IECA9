@@ -40,7 +40,7 @@ public class GetCustomerIns extends HttpServlet{
         PrintWriter out= response.getWriter();
         Connection dbConnection = null;
         try {
-            String id = request.getParameter("id");
+            String id = StockMarket.getInstance().isTestMode()?request.getParameter("id"): request.getRemoteUser();
             if (id == null || id.isEmpty()) {
                 throw new DataIllegalException("Mismatched Parameters");
             }
@@ -62,7 +62,7 @@ public class GetCustomerIns extends HttpServlet{
         }catch (DataIllegalException ex){
                 out.println(ex.getMessage());
         } catch (SQLException ex) {
-            out.print("Error in saving new customer in DB.");
+            out.print("Error in retrieving data from DB.");
             Logger.getLogger(AddCustomer.class.getName()).log(Level.SEVERE, null, ex);
         } catch (DBException ex) {
             out.print("Error in creating DB connection");

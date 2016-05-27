@@ -39,7 +39,7 @@ public class GetCustomer extends HttpServlet{
         PrintWriter out= response.getWriter();
         Connection dbConnection = null;
             try {
-                String id = request.getRemoteUser();
+                String id = StockMarket.getInstance().isTestMode()?request.getParameter("id"): request.getRemoteUser();
                 
                 if (id == null || id.isEmpty()) {
                     throw new DataIllegalException("Mismatched Parameters");

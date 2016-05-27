@@ -27,12 +27,14 @@ import net.internetengineering.model.OfferingDAO;
  * Created by Hamed Ara on 2/18/2016.
  */
 public class Instrument {
+    private String customerID;
     private String symbol;
     private Long quantity;
     private List<SellingOffer> sellingOffers;
     private List<BuyingOffer> buyingOffers;
 
-    public Instrument(String sym,Long quantity) {
+    public Instrument(String customerID,String sym,Long quantity) {
+        this.customerID=customerID;
         this.symbol = sym;
         this.quantity = quantity;
         this.sellingOffers = new ArrayList<SellingOffer>();
@@ -129,10 +131,12 @@ public class Instrument {
 	    		Long buyQuantity = (long) 0 ;
 	    		if(buyingOffer.getQuantity() < sellingOffer.getQuantity()){
 	    			buyQuantity = buyingOffer.getQuantity();
+                                buyingOffer.setQuantity("delete", buyQuantity);
                                 OfferingDAO.deleteOfferingByDBID(buyingOffer.getDbID(), dbConnection);
 	    			buyingOffers.remove(0);
 	    			sellingOffer.setQuantity("delete", buyQuantity);
-	    			sellingOffers.set(0, sellingOffer);
+	    			OfferingDAO.updateQuantityOfOffering(sellingOffer, dbConnection);
+                                sellingOffers.set(0, sellingOffer);
                                 if(sellingOffer.getQuantity()==0L){
                                     OfferingDAO.deleteOfferingByDBID(sellingOffer.getDbID(), dbConnection);
                                     sellingOffers.remove(0);
@@ -141,8 +145,10 @@ public class Instrument {
 	    		else{
 	    			buyQuantity = sellingOffer.getQuantity();
                                 OfferingDAO.deleteOfferingByDBID(sellingOffer.getDbID(), dbConnection);
+                                sellingOffer.setQuantity("delete", buyQuantity);
 	    			sellingOffers.remove(0);
 	    			buyingOffer.setQuantity("delete", buyQuantity);
+                                OfferingDAO.updateQuantityOfOffering(buyingOffer, dbConnection);
 	    			buyingOffers.set(0, buyingOffer);
 					if(buyingOffer.getQuantity()==0L){
                                             OfferingDAO.deleteOfferingByDBID(buyingOffer.getDbID(), dbConnection);
@@ -179,10 +185,12 @@ public class Instrument {
         Collections.sort(offers, new Comparator<Offering>() {
             @Override
             public int compare(Offering o1, Offering o2) {
-                return o1.getPrice()>o2.getPrice()?1:-1;
+                if(o1 instanceof SellingOffer)
+                    return o1.getPrice()>o2.getPrice()?1:-1;
+                else
+                    return o1.getPrice()>o2.getPrice()?-1:1;
             }
         });
-//		return offers;
     }
 
 
@@ -210,5 +218,10 @@ public class Instrument {
     public void addBuyingOffer(BuyingOffer buyingOffer) {
         this.buyingOffers.add( buyingOffer);
     }
+
+    public String getCustomerID() {
+        return customerID;
+    }
+    
     
 }
