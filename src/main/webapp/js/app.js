@@ -112,8 +112,8 @@
             $scope.customer = value;
         }
         
-        this.saveRole = function (){
-            
+        this.saveRole = function (cus){
+            alert(cus["roles2"]["admin"]);
         }
         
         this.doLogin = function () {
