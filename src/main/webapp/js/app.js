@@ -72,14 +72,19 @@
             });
         }
         
-        this.checked = function(rol,urol){
-            angular.forEach(urol, function (u) {
-                if (u === rol) {
-                     return true;
-                }
-            });
+        this.checked = function(urol){
+           // alert(rol);
+           // alert(urol);
+//            angular.forEach(urol, function (value,key) {
+//                alert(rol);
+//                if (key === rol && value === true) {
+//                    alert('-> '+rol);
+//                    
+//                     return true;
+//                }
+//            });
                     
-            return false;
+            return urol;
         }
         
         this.getCustomers = function () { 
@@ -107,8 +112,8 @@
             $scope.customer = value;
         }
         
-        this.saveRole = function (){
-            
+        this.saveRole = function (cus){
+            alert(cus["roles2"]["admin"]);
         }
         
         this.doLogin = function () {

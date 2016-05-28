@@ -48,7 +48,7 @@
                         
                         <!--<label class="control-label">نقش</label>-->
                         <!--<input ng-repeat="cRole in customer.roles" type="text" class="form-control" aria-describedby="basic-addon3" value="{{cRole}}">-->
-                        <div class="form-group">
+                        <!--<div class="form-group">-->
                             <label >نقش</label>
 <!--                            <select ng-repeat="cRole in customer.roles" class="form-control" id="role" name="{{cRole}}">
                                 <option></option>
@@ -56,14 +56,15 @@
                               
                             </select>-->
                             <div class="checkbox" ng-repeat="aRole in roles">
-                                <label><input type="checkbox" value="{{aRole}}" ng-checked="ctrl.checked(aRole,customer.roles)">{{aRole}}</label>
+                                <label><input type="checkbox" ng-model="(customer.roles2[aRole])" ng-checked="ctrl.checked(customer.roles2[aRole])" >{{aRole}}</label>
                             </div>
-                         </div>
-                        
+                            
+                         <!--</div>-->
+                        <div class="modal-footer">
+                        <button class="btn btn-success" type="submit" ng-click="ctrl.saveRole(customer)" data-dismiss="modal">ثبت</button>
                     </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-success" type="submit" ng-click="ctrl.saveRole()" data-dismiss="modal">ثبت</button>
                     </div>
+                    
                 </div>
             </div>
         </div>

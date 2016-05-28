@@ -9,13 +9,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.json.JSONObject;
 import org.json.JSONArray;
 
 import javax.servlet.ServletException;
@@ -23,14 +19,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import net.internetengineering.exception.DataIllegalException;
 import net.internetengineering.server.StockMarket;
-import net.internetengineering.domain.dealing.Instrument;
-import net.internetengineering.domain.dealing.SellingOffer;
-import net.internetengineering.domain.dealing.BuyingOffer;
 import net.internetengineering.exception.DBException;
 import net.internetengineering.utils.HSQLUtil;
-import net.internetengineering.utils.JsonBuilder;
 
 
 /**
@@ -53,9 +44,8 @@ public class GetRoles extends HttpServlet{
             
             JSONArray myList1 = new JSONArray();
 
-            for (int i = 0; i < roles.size(); i++) {
-                
-                myList1.put(roles.get(i));
+            for (String role : roles) {
+                myList1.put(role);
             }
             
                 response.getWriter().print(myList1);
