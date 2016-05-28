@@ -332,3 +332,247 @@ DELETE FROM CUSTOMER WHERE ID='3'
 INSERT INTO CUSTOMER VALUES('3','fdn','dfv','kl@l','fv',0)
 COMMIT
 DISCONNECT
+/*C10*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C9*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C11*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C13*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C12*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C14*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C15*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C17*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C16*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C19*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C18*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C21*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C20*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C22*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C23*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C25*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C24*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C27*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C26*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C28*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C29*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C31*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C30*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C32*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C33*/SET SCHEMA PUBLIC
+drop table instr_offer if exists
+drop table instrument if exists
+drop table offering if exists
+drop table role_customer if exists
+drop table role if exists
+drop table customer if exists
+drop table transaction if exists
+create table role (    name varchar(80) not null,    deposit boolean not null,    transaction boolean not null,    confdeposit boolean not null,    conftransact boolean not null,    addsymbol boolean not null,    transactlimit boolean not null,    confnewsymbol boolean not null,    report boolean not null,    rolemanager boolean not null,    userprofiles boolean not null,    backup boolean not null,    primary key (name))
+INSERT INTO ROLE VALUES('admin',TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE)
+COMMIT
+INSERT INTO ROLE VALUES('typical',TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE)
+COMMIT
+INSERT INTO ROLE VALUES('officer',FALSE,FALSE,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE)
+COMMIT
+INSERT INTO ROLE VALUES('owner',FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE)
+COMMIT
+create table customer (    id varchar(80) not null,    name varchar(80) not null,    family varchar(80) not null,    email varchar(100) not null,    password varchar(200) not null,    balance bigint default 0 not null ,    primary key (id))
+create table role_customer (    id varchar(80) not null,    role_name varchar(80) not null,    primary key (id,role_name),    constraint custom_id_fk foreign key(id) references customer(id) on delete cascade,    constraint role_name_fk foreign key(role_name) references role(name) on delete cascade)
+create table instrument (    customer_id varchar(80) not null,    symbol varchar(100) not null,    quantity bigint not null,    for_sale boolean not null,    primary key (customer_id,symbol),    constraint customer_id_fk foreign key(customer_id) references customer(id) on delete cascade)
+create table offering(    db_id bigint IDENTITY PRIMARY KEY,    customer_id varchar(80) not null,    price bigint not null,    quantity bigint not null,    type varchar(30) not null,    kind integer not null,    constraint custome_id_fk foreign key(customer_id) references customer(id) on delete cascade)
+create table instr_offer(    instr_cust_id varchar(80) not null,    instr_symbol varchar(100) not null,    offer_id bigint not null,    primary key (instr_cust_id, instr_symbol, offer_id ),    constraint instr_fk foreign key(instr_cust_id, instr_symbol) references instrument(customer_id,symbol) on delete cascade,    constraint offer_id_fk foreign key(offer_id) references offering(db_id) on delete cascade)
+create table transaction(    tr_id bigint IDENTITY PRIMARY KEY,    buyer varchar(80) not null,    seller varchar(80) not null,    instrument varchar(80) not null,    typeOfTrade varchar(80) not null,    quantity bigint not null,    price bigint not null,    tTime date default now)
+INSERT INTO CUSTOMER VALUES('1','admin','admin','admin@stockmarket.com','password',0)
+COMMIT
+INSERT INTO ROLE_CUSTOMER VALUES('1','admin')
+COMMIT
+DISCONNECT
+/*C34*/SET SCHEMA PUBLIC
+INSERT INTO CUSTOMER VALUES('2','ali','alavi','ali@alavi.com','aa',0)
+COMMIT
+INSERT INTO ROLE_CUSTOMER VALUES('2','typical')
+COMMIT
+DISCONNECT
+/*C35*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C36*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C37*/SET SCHEMA PUBLIC
+drop table instr_offer if exists
+drop table instrument if exists
+drop table offering if exists
+drop table role_customer if exists
+drop table role if exists
+drop table customer if exists
+drop table transaction if exists
+create table role (    name varchar(80) not null,    deposit boolean not null,    transaction boolean not null,    confdeposit boolean not null,    conftransact boolean not null,    addsymbol boolean not null,    transactlimit boolean not null,    confnewsymbol boolean not null,    report boolean not null,    rolemanager boolean not null,    userprofiles boolean not null,    backup boolean not null,    primary key (name))
+INSERT INTO ROLE VALUES('admin',TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE)
+COMMIT
+INSERT INTO ROLE VALUES('typical',TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE)
+COMMIT
+INSERT INTO ROLE VALUES('officer',FALSE,FALSE,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE)
+COMMIT
+INSERT INTO ROLE VALUES('owner',FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE)
+COMMIT
+create table customer (    id varchar(80) not null,    name varchar(80) not null,    family varchar(80) not null,    email varchar(100) not null,    password varchar(200) not null,    balance bigint default 0 not null ,    primary key (id))
+create table role_customer (    id varchar(80) not null,    role_name varchar(80) not null,    primary key (id,role_name),    constraint custom_id_fk foreign key(id) references customer(id) on delete cascade,    constraint role_name_fk foreign key(role_name) references role(name) on delete cascade)
+create table instrument (    customer_id varchar(80) not null,    symbol varchar(100) not null,    quantity bigint not null,    for_sale boolean not null,    primary key (customer_id,symbol),    constraint customer_id_fk foreign key(customer_id) references customer(id) on delete cascade)
+create table offering(    db_id bigint IDENTITY PRIMARY KEY,    customer_id varchar(80) not null,    price bigint not null,    quantity bigint not null,    type varchar(30) not null,    kind integer not null,    constraint custome_id_fk foreign key(customer_id) references customer(id) on delete cascade)
+create table instr_offer(    instr_cust_id varchar(80) not null,    instr_symbol varchar(100) not null,    offer_id bigint not null,    primary key (instr_cust_id, instr_symbol, offer_id ),    constraint instr_fk foreign key(instr_cust_id, instr_symbol) references instrument(customer_id,symbol) on delete cascade,    constraint offer_id_fk foreign key(offer_id) references offering(db_id) on delete cascade)
+create table transaction(    tr_id bigint IDENTITY PRIMARY KEY,    buyer varchar(80) not null,    seller varchar(80) not null,    instrument varchar(80) not null,    typeOfTrade varchar(80) not null,    quantity bigint not null,    price bigint not null,    tTime date default now)
+INSERT INTO CUSTOMER VALUES('1','admin','admin','admin@stockmarket.com','password',0)
+COMMIT
+INSERT INTO ROLE_CUSTOMER VALUES('1','admin')
+COMMIT
+DISCONNECT
+/*C38*/SET SCHEMA PUBLIC
+INSERT INTO CUSTOMER VALUES('2','ali','alavi','ali@alavi.com','aa',0)
+COMMIT
+INSERT INTO ROLE_CUSTOMER VALUES('2','typical')
+COMMIT
+DISCONNECT
+/*C39*/SET SCHEMA PUBLIC
+DELETE FROM CUSTOMER WHERE ID='2'
+INSERT INTO CUSTOMER VALUES('2','ali','alavi','ali@alavi.com','aa',0)
+COMMIT
+DELETE FROM CUSTOMER WHERE ID='2'
+INSERT INTO CUSTOMER VALUES('2','ali','alavi','ali@alavi.com','aa',1000000)
+COMMIT
+DISCONNECT
+/*C40*/SET SCHEMA PUBLIC
+INSERT INTO INSTRUMENT VALUES('1','RENA',100,TRUE)
+COMMIT
+DELETE FROM CUSTOMER WHERE ID='1'
+INSERT INTO CUSTOMER VALUES('1','admin','admin','admin@stockmarket.com','password',0)
+COMMIT
+INSERT INTO OFFERING VALUES(0,'1',50,100,'GTC',0)
+COMMIT
+INSERT INTO INSTR_OFFER VALUES('1','RENA',0)
+COMMIT
+DISCONNECT
+/*C41*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C42*/SET SCHEMA PUBLIC
+INSERT INTO INSTRUMENT VALUES('1','DENA',1000,TRUE)
+COMMIT
+DELETE FROM CUSTOMER WHERE ID='1'
+INSERT INTO CUSTOMER VALUES('1','admin','admin','admin@stockmarket.com','password',0)
+COMMIT
+INSERT INTO OFFERING VALUES(1,'1',25,1000,'GTC',0)
+COMMIT
+INSERT INTO INSTR_OFFER VALUES('1','DENA',1)
+COMMIT
+DISCONNECT
+/*C43*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C44*/SET SCHEMA PUBLIC
+DELETE FROM CUSTOMER WHERE ID='2'
+INSERT INTO CUSTOMER VALUES('2','ali','alavi','ali@alavi.com','aa',1000000)
+COMMIT
+DELETE FROM CUSTOMER WHERE ID='2'
+INSERT INTO CUSTOMER VALUES('2','ali','alavi','ali@alavi.com','aa',995000)
+COMMIT
+INSERT INTO OFFERING VALUES(2,'2',100,50,'GTC',1)
+COMMIT
+DELETE FROM OFFERING WHERE DB_ID=2
+COMMIT
+DELETE FROM OFFERING WHERE DB_ID=0
+INSERT INTO OFFERING VALUES(0,'1',50,50,'GTC',0)
+COMMIT
+DELETE FROM CUSTOMER WHERE ID='1'
+INSERT INTO CUSTOMER VALUES('1','admin','admin','admin@stockmarket.com','password',0)
+COMMIT
+DELETE FROM CUSTOMER WHERE ID='2'
+INSERT INTO CUSTOMER VALUES('2','ali','alavi','ali@alavi.com','aa',995000)
+COMMIT
+DELETE FROM CUSTOMER WHERE ID='1'
+INSERT INTO CUSTOMER VALUES('1','admin','admin','admin@stockmarket.com','password',5000)
+COMMIT
+INSERT INTO INSTRUMENT VALUES('2','RENA',50,FALSE)
+COMMIT
+DELETE FROM CUSTOMER WHERE ID='1'
+INSERT INTO CUSTOMER VALUES('1','admin','admin','admin@stockmarket.com','password',5000)
+COMMIT
+DELETE FROM CUSTOMER WHERE ID='2'
+INSERT INTO CUSTOMER VALUES('2','ali','alavi','ali@alavi.com','aa',995000)
+COMMIT
+/*C45*/SET SCHEMA PUBLIC
+INSERT INTO TRANSACTION VALUES(0,'2','1','RENA','GTC',50,100,'2016-05-28')
+COMMIT
+DISCONNECT
+/*C44*/DISCONNECT
+/*C46*/SET SCHEMA PUBLIC
+DELETE FROM CUSTOMER WHERE ID='2'
+INSERT INTO CUSTOMER VALUES('2','ali','alavi','ali@alavi.com','aa',995000)
+COMMIT
+DELETE FROM CUSTOMER WHERE ID='2'
+INSERT INTO CUSTOMER VALUES('2','ali','alavi','ali@alavi.com','aa',984860)
+COMMIT
+INSERT INTO OFFERING VALUES(3,'2',130,78,'GTC',1)
+COMMIT
+DELETE FROM OFFERING WHERE DB_ID=0
+DELETE FROM INSTR_OFFER WHERE INSTR_CUST_ID='1' AND INSTR_SYMBOL='RENA' AND OFFER_ID=0
+COMMIT
+DELETE FROM OFFERING WHERE DB_ID=3
+INSERT INTO OFFERING VALUES(3,'2',130,28,'GTC',1)
+COMMIT
+DELETE FROM CUSTOMER WHERE ID='1'
+INSERT INTO CUSTOMER VALUES('1','admin','admin','admin@stockmarket.com','password',5000)
+COMMIT
+DELETE FROM CUSTOMER WHERE ID='2'
+INSERT INTO CUSTOMER VALUES('2','ali','alavi','ali@alavi.com','aa',984860)
+COMMIT
+DELETE FROM CUSTOMER WHERE ID='1'
+INSERT INTO CUSTOMER VALUES('1','admin','admin','admin@stockmarket.com','password',11500)
+COMMIT
+DELETE FROM INSTRUMENT WHERE CUSTOMER_ID='2' AND SYMBOL='RENA'
+INSERT INTO INSTRUMENT VALUES('2','RENA',100,FALSE)
+COMMIT
+DELETE FROM CUSTOMER WHERE ID='1'
+INSERT INTO CUSTOMER VALUES('1','admin','admin','admin@stockmarket.com','password',11500)
+COMMIT
+DELETE FROM CUSTOMER WHERE ID='2'
+INSERT INTO CUSTOMER VALUES('2','ali','alavi','ali@alavi.com','aa',984860)
+COMMIT
+/*C47*/SET SCHEMA PUBLIC
+INSERT INTO TRANSACTION VALUES(1,'2','1','RENA','GTC',50,130,'2016-05-28')
+COMMIT
+DISCONNECT
+/*C46*/INSERT INTO INSTR_OFFER VALUES('1','RENA',3)
+COMMIT
+DISCONNECT
+/*C48*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C49*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C50*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C51*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C52*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C53*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C54*/SET SCHEMA PUBLIC
+DISCONNECT
