@@ -22,10 +22,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import net.internetengineering.domain.Customer;
 import net.internetengineering.exception.DBException;
-import net.internetengineering.exception.DataIllegalException;
 import net.internetengineering.server.StockMarket;
 import net.internetengineering.utils.HSQLUtil;
-import net.internetengineering.utils.JsonBuilder;
 import org.json.JSONArray;
 import org.json.JSONObject;
 /**
@@ -43,6 +41,7 @@ public class GetCustomers extends HttpServlet{
                 dbConnection = HSQLUtil.getInstance().openConnectioin();
                 ArrayList<Customer> cList = StockMarket.getInstance().getCustomers(dbConnection);
                 JSONArray customers = new JSONArray();
+                ArrayList<String> allRoles = StockMarket.getInstance().getRoles(dbConnection);
                 
             for (Customer c : cList) {
                 
@@ -53,12 +52,28 @@ public class GetCustomers extends HttpServlet{
                 map.put("email", c.getEmail());
                 map.put("money", c.getMoney());
                 
-                JSONArray roles = new JSONArray();
-                for (int i = 0; i < c.getRoles().size(); i++) {
-                    roles.put(c.getRoles().get(i).name);
+                Map<String,Object> roles = new HashMap<String, Object>();
+                
+                for (String role : allRoles) {
+                    int x = 0;
+                    for (int i = 0; i < c.getRoles().size(); i++) {
+                        if(role.equals(c.getRoles().get(i).name)){
+                            roles.put(c.getRoles().get(i).name,true);
+                            x = 1;
+                        }
+                    }
+                    if(x != 1)
+                        roles.put(role,false);
                 }
                 
-                map.put("roles", roles);
+                map.put("roles2", roles);
+                
+                JSONArray rl = new JSONArray();
+                for (int i = 0; i < c.getRoles().size(); i++) {
+                    rl.put(c.getRoles().get(i).name);
+                }
+                
+                map.put("roles", rl);
                 
                 customers.put(map);
             }
