@@ -4,6 +4,7 @@ import net.internetengineering.domain.Transaction;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Created by Hamed Ara on 4/7/2016.
@@ -11,26 +12,24 @@ import java.io.IOException;
 public class CSVFileWriter {
     private static final String COMMA_DELIMITER = ",";
     private static final String NEW_LINE_SEPARATOR = "\n";
-    private static final String fileName="backup.csv";
-    public static void writeCsvFile(Transaction t) {
+    private static final String fileName="./backup.csv";
+    public static void writeCsvFile(List<Transaction> ts) {
         FileWriter fileWriter = null;
         try {
             fileWriter = new FileWriter(fileName,true);
-            fileWriter.append(t.buyer);
-            fileWriter.append(COMMA_DELIMITER);
-            fileWriter.append(t.seller);
-            fileWriter.append(COMMA_DELIMITER);
-            fileWriter.append(t.instrument);
-            fileWriter.append(COMMA_DELIMITER);
-            fileWriter.append(t.typeOfTrade);
-            fileWriter.append(COMMA_DELIMITER);
-            fileWriter.append(t.quantity);
-            fileWriter.append(COMMA_DELIMITER);
-            // fileWriter.append(t.buyerRemainedMoney);
-            // fileWriter.append(COMMA_DELIMITER);
-            // fileWriter.append(t.sellerCurrentMoney);
-            // fileWriter.append(COMMA_DELIMITER);
-            fileWriter.append(NEW_LINE_SEPARATOR);
+            for(Transaction t: ts){
+                fileWriter.append(t.buyer);
+                fileWriter.append(COMMA_DELIMITER);
+                fileWriter.append(t.seller);
+                fileWriter.append(COMMA_DELIMITER);
+                fileWriter.append(t.instrument);
+                fileWriter.append(COMMA_DELIMITER);
+                fileWriter.append(t.typeOfTrade);
+                fileWriter.append(COMMA_DELIMITER);
+                fileWriter.append(t.quantity);
+                fileWriter.append(COMMA_DELIMITER);
+                fileWriter.append(NEW_LINE_SEPARATOR);
+            }
         } catch (Exception e) {
             System.out.println("Error in CsvFileWriter !!!");
             e.printStackTrace();

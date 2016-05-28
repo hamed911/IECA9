@@ -31,7 +31,8 @@ public class DepositHandler extends HttpServlet{
 				throw new DataIllegalException("Mismatched Parameters");
                         dbConnection = HSQLUtil.getInstance().openConnectioin();
 			if (StockMarket.getInstance().containCustomer(id,dbConnection)){
-				StockMarket.getInstance().addDepositRequest(id,amount);
+//				StockMarket.getInstance().addDepositRequest(id,amount);
+                            StockMarket.getInstance().executeFinancialTransaction(id, TransactionType.DEPOSIT,amount,dbConnection);
 				out.println("Your request is saved and it is waiting for being approved.");
 			}
 			else {

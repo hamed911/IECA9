@@ -1,0 +1,33 @@
+<div ng-controller="AppNewSymbolCtrl as asCtrl>
+        <div class="row mystyle">
+
+            <div class="col-lg-12">
+                <h2 class="page-header ">
+                    <span class="inline-style">تایید درخواست تغییر اعتبار</span>
+                </h2>
+            </div>
+
+            <div >
+                <div class="panel-group">
+                    <div class="panel panel-default">
+                        <ul>
+                            <li class="list-group-item">
+                                <ul ng-repeat="symbol in symbols" class="list-group">
+                                    <li class="list-group-item">
+                                        <div class="glyphicon-minus text-success">
+                                            <div class="inline-style">{{symbol.name}}</div>
+                                            <div class="inline-style">{{symbol.quantity}} عدد</div>
+                                            <div class="inline-style">{{symbol.price}} $</div>
+                                            <div class="inline-style"><a href="" ng-click="asCtrl.symnolApprove(symbol,'accept')">تایید</a></div>
+                                            <div class="inline-style"><a href="" ng-click="asCtrl.symnolApprove(symbol,'decline')">رد</a></div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+</div>

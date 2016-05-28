@@ -354,4 +354,20 @@
         }
     }]);
 
+    app.controller('AppNewSymbolCtrl',['$scope', '$http', function ($scope, $http){
+        $scope.symbols=[{'name':'BMW','quantity':200,'price':355}];
+        this.setLimit = function (symbol,but){
+            alert('amount:'+symbol+'but: '+but);
+            $http({
+                method: 'GET',
+                url: 'appnewsymbol',
+                params: { 'id': '1','symbol': symbol.name, 'price':symbol.price,'amount':symbol.quantity,'cmd':but }
+            }).success(function (data, status, headers, config) {
+                alert('Success: '+data);
+            }).error(function (data, status, headers, config) {
+                alert('Error:' + data);
+            });
+        }
+    }]);
+
 })();

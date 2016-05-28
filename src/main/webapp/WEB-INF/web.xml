@@ -15,7 +15,7 @@
         
          <!--Security Constraints--> 
 
-<!--	<security-constraint>
+	<security-constraint>
 		<web-resource-collection>
 			<web-resource-name>InCommon</web-resource-name>
 			<url-pattern>/index.html</url-pattern>
@@ -28,21 +28,78 @@
 			<role-name>owner</role-name>
 			<role-name>officer</role-name>
 		</auth-constraint>
-	</security-constraint>-->
+	</security-constraint>
+        
+        <security-constraint>
+		<web-resource-collection>
+			<web-resource-name>ForTypicalUser</web-resource-name>
+			<url-pattern>/deposit.html</url-pattern>
+			<url-pattern>/deposit</url-pattern>
+			<url-pattern>/buyAndSell.html</url-pattern>
+			<url-pattern>/transaction</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>admin</role-name>
+			<role-name>typical</role-name>
+		</auth-constraint>
+	</security-constraint>
+        
+        <security-constraint>
+		<web-resource-collection>
+			<web-resource-name>ForFinancialOfficer</web-resource-name>
+			<url-pattern>/app-deposit.html</url-pattern>
+			<url-pattern>/approvedeposit</url-pattern>
+			<url-pattern>/app-transaction.html</url-pattern>
+			<url-pattern>/apptransac</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>admin</role-name>
+                        <role-name>officer</role-name>
+		</auth-constraint>
+	</security-constraint>
+        
+        <security-constraint>
+		<web-resource-collection>
+			<web-resource-name>ForOwner</web-resource-name>
+			<url-pattern>/add-new-symbol.html</url-pattern>
+			<url-pattern>/addnewsymbol</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>admin</role-name>
+                        <role-name>owner</role-name>
+		</auth-constraint>
+	</security-constraint>
+        
+        <security-constraint>
+		<web-resource-collection>
+			<web-resource-name>ForAdmin</web-resource-name>
+			<url-pattern>/transac-limitat.html</url-pattern>
+			<url-pattern>/transaclimit</url-pattern>
+			<url-pattern>/app-symbol.html</url-pattern>
+			<url-pattern>/appnewsymbol</url-pattern>
+			<url-pattern>/report.html</url-pattern>
+			<url-pattern>/search</url-pattern>
+			<url-pattern>/backupfile</url-pattern>
+			<url-pattern>/userManagment.html</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>admin</role-name>
+		</auth-constraint>
+	</security-constraint>
         
          <!--Login config--> 
         
-<!--        <login-config>
+        <login-config>
 		<auth-method>FORM</auth-method>
 		<form-login-config>
 			<form-login-page>/login.html</form-login-page>
 			<form-error-page>/login.html</form-error-page>
 		</form-login-config>
-	</login-config>-->
+	</login-config>
 	
 	 <!--Security Roles--> 
 	
-<!--	<security-role>
+	<security-role>
             <role-name>admin</role-name>
 	</security-role>
 	<security-role>
@@ -53,5 +110,5 @@
 	</security-role>
 	<security-role>
             <role-name>typical</role-name>
-	</security-role>-->
+	</security-role>
 </web-app>

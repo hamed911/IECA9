@@ -46,8 +46,8 @@ public class AddNewSymbol extends HttpServlet {
                 throw new DataIllegalException("Mismatched Parameters");
             sellingOffer.validateVariables();
             dbConnection = HSQLUtil.getInstance().openConnectioin();
-//            StockMarket.getInstance().executeSellingOffer(out, sellingOffer, symbol,dbConnection,true);
-            StockMarket.getInstance().addNewSymbol(symbol, sellingOffer);
+            StockMarket.getInstance().executeSellingOffer(out, sellingOffer, symbol,dbConnection,true);
+//            StockMarket.getInstance().addNewSymbol(symbol, sellingOffer);
             out.print("Your request for adding a new symbol is saved.");
         } catch (DataIllegalException e) {
             out.print(e.getMessage());

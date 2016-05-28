@@ -20,6 +20,7 @@ import net.internetengineering.model.InstrumentDAO;
 import net.internetengineering.model.InstrumentOfferingDAO;
 import net.internetengineering.model.OfferingDAO;
 import net.internetengineering.model.RoleDAO;
+import net.internetengineering.model.TransactionDAO;
 
 /**
  * Created by Hamed Ara on 2/18/2016.
@@ -236,6 +237,13 @@ public class StockMarket {
     }
     public void addHeavyTransaction(Transaction t){
         heavyTransactions.add(t);
+    }
+    
+    public void confirmHeavyTransactions(PrintWriter out) throws DBException{
+        for(Transaction t : heavyTransactions){
+            TransactionDAO.createTransaction(t);
+            out.println(t.seller+" sold "+t.quantity+" shares of "+t.instrument+" @"+t.price+" to "+t.buyer);
+        }
     }
     
     private static HashMap<String,Long> depositRequests = new HashMap<String, Long>();
