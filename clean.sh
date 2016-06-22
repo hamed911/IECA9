@@ -2,11 +2,11 @@ mvn clean
 STATUS=$?
 if [ $STATUS -eq 0 ]; then
 	echo "target Cleaned Successfully ..."
-	rm -r C:/"Program Files"/"Apache Software Foundation"/"Apache Tomcat 8.0.9"/webapps/stockmarket
+	rm -r "$CATALINA_HOME"/webapps/stockmarket
 	STATUS=$?
 	if [ $STATUS -eq 0 ]; then
 		echo "stockmarket folder Cleaned Successfully ..."
-	rm C:/"Program Files"/"Apache Software Foundation"/"Apache Tomcat 8.0.9"/webapps/stockmarket.war
+	rm "$CATALINA_HOME"/webapps/stockmarket.war
 	STATUS=$?
 	if [ $STATUS -eq 0 ]; then
 		echo "stockmarket.war Cleaned Successfully ..."

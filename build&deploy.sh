@@ -2,7 +2,11 @@ mvn package
 STATUS=$?
 if [ $STATUS -eq 0 ]; then
 	echo "built Successfully..."
-	mv ./target/stockmarket.war C:/"Program Files"/"Apache Software Foundation"/"Apache Tomcat 8.0.9"/webapps/
+	if [ -z "$CATALINA_HOME" ]; then
+    	echo "Need to set 'CATALINA_HOME' variable in your system"
+    	exit 1
+	fi  
+	mv ./target/stockmarket.war "$CATALINA_HOME"/webapps/
 	STATUS=$?
 	if [ $STATUS -eq 0 ]; then
 		echo "deployed Successfully ..."
